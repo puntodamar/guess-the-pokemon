@@ -11,6 +11,10 @@ function randInt(min, max) {
     return Math.floor(Math.random() * (hi - lo + 1)) + lo;
 }
 
+function normalizeLetters(s) {
+    return String(s || "").toLowerCase().replace(/[^a-z]/g, "");
+}
+
 export default defineEventHandler(async () => {
     const speciesMeta = await $fetch("https://pokeapi.co/api/v2/pokemon-species?limit=1");
     const total = speciesMeta?.count || 1010;
@@ -22,13 +26,20 @@ export default defineEventHandler(async () => {
         
         const species = await $fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`).catch(() => null);
         if (!species) continue;
+        const nameKey = normalizeLetters(species.name);
         
         const englishEntries = (species.flavor_text_entries || [])
             .filter((e) => e?.language?.name === "en")
             .map((e) => cleanFlavor(e?.flavor_text))
-            .filter(Boolean);
+            .filter(Boolean)
+            .filter((txt) => {
+                const txtKey = normalizeLetters(txt);
+                return !txtKey.includes(nameKey);
+            });
         
-        if (!englishEntries.length) continue;
+        if (!englishEntries.length) {
+            continue;
+        }
         
         const flavor = englishEntries[randInt(0, englishEntries.length - 1)];
         
