@@ -9,13 +9,8 @@ export default defineNuxtConfig({
             tailwindcss(),
         ],
     },
-    // postcss: {
-    //     plugins: {
-    //         '@tailwindcss/postcss': {}, // Tailwind v4 PostCSS plugin
-    //         autoprefixer: {},           // keeps vendor prefixes
-    //     },
-    // },
     app: {
+        pageTransition: { name: 'page', mode: 'out-in' },
         head: {
             title: "Guess The Pokemon!",
             htmlAttrs: {lang: 'en'},
@@ -26,16 +21,37 @@ export default defineNuxtConfig({
                 {name: 'description', content: 'Guess The Pokemon is an portofolio application made by puntodamar'},
             ],
             link: [
-                { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-                { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-                { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
-                { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-                { rel: 'manifest', href: '/site.webmanifest' },
-                { rel: 'stylesheet', href: 'https://fonts.cdnfonts.com/css/pokemon-solid' },
-                { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-                { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-                { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap' }
+                {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+                {rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png'},
+                {rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png'},
+                {rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png'},
+                {rel: 'manifest', href: '/site.webmanifest'},
+                {rel: 'stylesheet', href: 'https://fonts.cdnfonts.com/css/pokemon-solid'},
+                {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
+                {rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: ''},
+                {
+                    rel: 'stylesheet',
+                    href: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap'
+                }
             ]
         }
+    },
+
+    modules: ['@nuxtjs/color-mode', '@nuxt/icon'],
+    colorMode: {
+        classSuffix: '-mode',
+        preference: 'dark',
+        fallback: 'dark',
+        // hid: 'pokemon-color-mode-script',
+        // globalName: '__NUXT_COLOR_MODE__',
+        // componentName: 'ColorScheme',
+        // classPrefix: '',
+        // classSuffix: '',
+        storage: 'localStorage',
+        storageKey: 'pokemon-color-mode'
+    },
+    icon: {
+        mode: 'css',
+        cssLayer: 'base'
     }
 });

@@ -1,11 +1,5 @@
+// tailwind.config.js
 export default {
-    content: [
-        './app.vue',
-        './pages/**/*.{vue,js,ts}',
-        './components/**/*.{vue,js,ts}',
-        './layouts/**/*.{vue,js,ts}',
-        './assets/**/*.{css,vue}'
-    ],
-    darkMode: 'class',
-    theme: { extend: {} },
+    darkMode: ['class', '.dark-mode'],
+    content: ['./app.vue','./pages/**/*.{vue,js}','./components/**/*.{vue,js}','./layouts/**/*.{vue,js}']
 }
