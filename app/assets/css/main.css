@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+@layer base {
+    :root {
+
+        --color-pokemon-yellow: #F8D94E;
+        --color-pokemon-blue:   #3B5CA8;
+        --color-pokemon-red:    #D86A58;
+
+
+        --surface:    #ffffff;
+        --surface-2:  #f6f7f9;
+        --surface-3:  #eef0f4;
+        --text:       #0b1220;
+        --muted:      #6b7280;
+        --border:     #d7dbe3;
+        --ring:       #3B5CA8;
+
+        --poke-stroke: #2a75bb;
+        --poke-shadow: rgba(0,0,0,0.45);
+    }
+
+    .dark {
+
+        --color-pokemon-yellow: #F7D64A;
+        --color-pokemon-blue:   #1E3A8A;
+        --color-pokemon-red:    #C85C4C;
+
+        --surface:    #0b0f17;
+        --surface-2:  #111827;
+        --surface-3:  #1f2937;
+        --text:       #e5e7eb;
+        --muted:      #a1a1aa;
+        --border:     #2d3748;
+        --ring:       #1E3A8A;
+
+        --poke-stroke: #1e40af;
+        --poke-shadow: rgba(0,0,0,0.75);
+    }
+}
+
+@theme {
+    --color-pokemon-yellow: var(--color-pokemon-yellow);
+    --color-pokemon-blue:   var(--color-pokemon-blue);
+    --color-pokemon-red:    var(--color-pokemon-red);
+
+    --color-surface:   var(--surface);
+    --color-surface-2: var(--surface-2);
+    --color-surface-3: var(--surface-3);
+    --color-text:      var(--text);
+    --color-muted:     var(--muted);
+    --color-border:    var(--border);
+    --color-ring:      var(--ring);
+
+    --font-pokemon: "Pokemon Solid", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-poppins: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+
+@layer base {
+    html { font-family: var(--font-body); color: var(--text); background: var(--surface); }
+}
+
+
+@layer utilities {
+
+    .font-heading { font-family: var(--font-pokemon); }
+    .font-body    { font-family: var(--font-body); }
+    .font-ui { font-family: var(--font-poppins); }
+
+    .u-microtype {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-kerning: normal;
+        text-wrap: pretty;
+        hanging-punctuation: first last;
+        hyphens: auto;
+    }
+    .u-nums-tabular { font-variant-numeric: tabular-nums; }
+
+    .text-pokemon {
+        font-family: var(--font-pokemon);
+        text-transform: uppercase;
+        font-weight: 700;
+        line-height: 1.05;
+        color: var(--color-pokemon-yellow);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        -webkit-text-stroke: 2px var(--poke-stroke);
+        text-shadow:
+                2px 2px 0 var(--poke-stroke),
+                4px 4px 8px var(--poke-shadow);
+    }
+
+    .bg-surface   { background-color: var(--surface); }
+    .bg-surface-2 { background-color: var(--surface-2); }
+    .bg-surface-3 { background-color: var(--surface-3); }
+    .text-baseclr { color: var(--text); }
+    .text-muted   { color: var(--muted); }
+    .border-base  { border-color: var(--border); }
+    .ring-brand   { outline-color: var(--ring); }
+
+    .text-pokemon-yellow   { color: var(--color-pokemon-yellow); }
+    .text-pokemon-blue     { color: var(--color-pokemon-blue); }
+    .text-pokemon-red      { color: var(--color-pokemon-red); }
+    .bg-pokemon-yellow     { background-color: var(--color-pokemon-yellow); }
+    .bg-pokemon-blue       { background-color: var(--color-pokemon-blue); }
+    .bg-pokemon-red        { background-color: var(--color-pokemon-red); }
+    .border-pokemon-yellow { border-color: var(--color-pokemon-yellow); }
+    .border-pokemon-blue   { border-color: var(--color-pokemon-blue); }
+    .border-pokemon-red    { border-color: var(--color-pokemon-red); }
+}
+
+@layer components {
+    .btn-brand {
+        @apply inline-flex items-center justify-center rounded-lg px-5 py-3 font-poppins font-semibold transition active:scale-95;
+        background: var(--color-pokemon-yellow);
+        color: var(--color-pokemon-blue);
+        box-shadow: 0 6px 20px rgba(0,0,0,.12);
+    }
+    .btn-brand:hover { filter: brightness(1.08); }
+
+    .card {
+        @apply rounded-2xl p-6 border;
+        background: var(--surface-2);
+        border-color: var(--border);
+        color: var(--text);
+        box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    }
+
+    .input {
+        @apply w-full rounded-lg px-3 py-2 border outline-none transition;
+        background: var(--surface);
+        border-color: var(--border);
+        color: var(--text);
+    }
+    .input:focus {
+        box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-ring) 35%, transparent);
+        border-color: var(--color-ring);
+    }
+}
