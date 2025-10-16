@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-row p-5">
+  <div class="flex flex-row items-center p-5">
     <NuxtLink to="/">
-      <h1 class=" text-2xl title">Guess The Pokemon!</h1>
+      <h1 class="text-xl lg:text-2xl title">Guess The Pokemon!</h1>
     </NuxtLink>
     <div class="flex-1"></div>
-    <button @click="toggleMode" class="btn btn-normal">
+    <button @click="toggleMode" class="btn btn-normal outline-1 outline-pokemon-heading">
       <Icon :name="iconName" />
     </button>
   </div>
