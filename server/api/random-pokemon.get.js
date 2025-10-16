@@ -15,8 +15,10 @@ function normalizeLetters(s) {
     return String(s || "").toLowerCase().replace(/[^a-z]/g, "");
 }
 
-export default defineEventHandler(async () => {
-    const speciesMeta = await $fetch("https://pokeapi.co/api/v2/pokemon-species?limit=1");
+export default defineEventHandler(async (generation = null) => {
+    let url = "https://pokeapi.co/api/v2/pokemon-species?limit=1"
+    if(generation) url += `&generation=${generation}`;
+    const speciesMeta = await $fetch(url);
     const total = speciesMeta?.count || 1010;
     
     const MAX_TRIES = 6;
@@ -25,6 +27,8 @@ export default defineEventHandler(async () => {
         
         const species = await $fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`).catch(() => null);
         if (!species) continue;
+        
+
         const nameKey = normalizeLetters(species.name);
         
         const englishEntries = (species.flavor_text_entries || [])

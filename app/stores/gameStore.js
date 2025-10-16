@@ -1,12 +1,14 @@
 export const GameStateLoading = 'GameStateLoading'
 export const GameStatePlaying = 'GameStatePlaying'
 export const GameStateError   = 'GameStateError'
-export const GameStates = [GameStateLoading, GameStatePlaying, GameStateError]
+export const GameStateInit = 'GameStateInit'
+export const GameStates = [GameStateLoading, GameStatePlaying, GameStateError, GameStateInit]
 
 export const useGameStore = defineStore('game-store', () => {
-    const gameState = ref(GameStateLoading)
+    const gameState = ref(GameStateInit)
     const errorMessage = ref(null)
     const isLoading = ref(false)
+    const generation = null
     
     const pokemon = ref({
         id: null,
@@ -30,6 +32,16 @@ export const useGameStore = defineStore('game-store', () => {
         if (GameStates.includes(next)) gameState.value = next
     }
     
+    async function getGeneration(){
+        const data = await $fetch('/api/generation')
+        if (!data || data.error) {
+            gameState.value = GameStateError
+            errorMessage.value = String(data?.error || 'Unknown error')
+            
+        }
+        return data.count
+        
+    }
     async function loadRandomPokemon() {
         try {
             isLoading.value = true
@@ -39,7 +51,6 @@ export const useGameStore = defineStore('game-store', () => {
             pokemon.value = { id: null, name: null, flavor: null, imageUrl: null, revealed: false }
             
             const data = await $fetch('/api/random-pokemon')
-            
             if (!data || data.error) {
                 gameState.value = GameStateError
                 errorMessage.value = String(data?.error || 'Unknown error')
@@ -61,13 +72,12 @@ export const useGameStore = defineStore('game-store', () => {
             errorMessage.value = 'Failed to load Pokémon. Please try again.'
         } finally {
             isLoading.value = false
-            console.log(pokemon.value.flavor)
         }
     }
     
     return {
         gameState, errorMessage, isLoading, pokemon,
-        revealPokemon, setGameState, loadRandomPokemon,
+        revealPokemon, setGameState, loadRandomPokemon,getGeneration,
         isError, isLoadingState,
     }
 })
