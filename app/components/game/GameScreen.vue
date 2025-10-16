@@ -44,7 +44,7 @@
 <!--        <flavor-info class="mt-25" />-->
 
 
-        <p class="text-sm font-body text-center text-pretty mt-20 md:mt-35 mx-10">
+        <p class="text-sm font-body text-center text-pretty mt-30 mx-10">
           <span
               v-show="gameStore.gameState !== GameStateError && gameStore.pokemon.imageReady"
               :key="gameStore.pokemon.imageUrl"
