@@ -1,8 +1,14 @@
 <template>
-  <section class="flex flex-1 flex-col">
-    <div class="flex-1 flex items-center justify-center">
+  <section class="flex flex-col items-center">
+    <p class="mb-40 ">
+      <span class="font-ui text-5xl font-semibold tracking-tight mr-5" :class="{invisible: !gameStore.pokemon.imageReady}">It's a</span>
+      <span class="text-5xl font-pokemon title" :class="{invisible: !gameStore.pokemon.imageReady}">{{`${gameStore.pokemon.name}!`}}</span>
+    </p>
+
+    <div class="flex items-center justify-center">
       <div class="w-full max-w-2xl">
         <div class="relative flex items-center justify-center">
+
           <div :class="imageLoaderClass" class="relative isolate w-55 h-55 md:w-80 md:h-80 overflow-visible transition-opacity rounded-full duration-700 ease-out">
             <img
                 @load="pokemonImageLoaded"
@@ -37,14 +43,8 @@
 
 <!--        <flavor-info class="mt-25" />-->
 
-<!--        <p class="text-sm font-poppins text-center text-pretty mt-25">-->
-<!--          <span v-if="gameStore.gameState !== GameStateError && gameStore.pokemon.imageReady">{{gameStore.pokemon.flavor}}</span>-->
-<!--          <span v-else-if="gameStore.errorMessage" class="text-pokemon-red">{{ gameStore.errorMessage }}</span>-->
-<!--          <span v-else class="opacity-60">Loading Pokédex entry…</span>-->
-<!--        </p>-->
 
-
-        <p class="text-sm font-poppins text-center text-pretty mt-20 md:mt-35 mx-10">
+        <p class="text-sm font-body text-center text-pretty mt-20 md:mt-35 mx-10">
           <span
               v-show="gameStore.gameState !== GameStateError && gameStore.pokemon.imageReady"
               :key="gameStore.pokemon.imageUrl"
@@ -67,12 +67,16 @@ import {useGameStore} from "~/stores/gameStore";
 import FlavorInfo from "~/components/game/FlavorInfo.vue";
 
 
+
+
 const gameStore = useGameStore()
 const colorMode = useColorMode()
 
 const pokemonImageLoaded = () => {
   gameStore.pokemon.imageReady = true
 }
+
+
 
 
 const imageLoaderClass = computed(() => {
@@ -110,5 +114,9 @@ const silhouetteClass = computed(() => {
   }
 })
 
-onMounted(gameStore.loadRandomPokemon);
+onMounted(() => {
+  gameStore.getGeneration().then((generation) => {
+    gameStore.loadRandomPokemon(5)
+  })
+})
 </script>
