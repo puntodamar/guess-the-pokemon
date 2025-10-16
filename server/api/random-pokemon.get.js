@@ -20,7 +20,6 @@ export default defineEventHandler(async () => {
     const total = speciesMeta?.count || 1010;
     
     const MAX_TRIES = 6;
-    
     for (let i = 0; i < MAX_TRIES; i++) {
         const id = randInt(1, total);
         

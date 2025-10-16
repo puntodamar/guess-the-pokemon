@@ -1,26 +1,32 @@
 <template>
   <section class="flex flex-1 flex-col">
-    <div class="min-h-screen flex items-center justify-center p-6">
+    <div class="flex-1 flex items-center justify-center">
       <div class="w-full max-w-2xl">
-        <div class="mt-6 flex items-center justify-center">
-          <div class="relative w-64 h-64 md:w-80 md:h-80 ">
-            <div class="relative w-full h-full overflow-hidden">
-              <img
-                  :key="state.imageUrl"
-                  :src="state.imageUrl"
-                  class="absolute inset-0 w-full h-full object-contain z-0"
-                  style="mask: none; -webkit-mask: none;"
-                  loading="lazy"
-              />
+        <div class="flex items-center justify-center">
+          <div class="relative isolate w-64 h-64 md:w-80 md:h-80 overflow-visible
+         before:content-[''] before:absolute before:-inset-16 before:z-0 before:pointer-events-none
+         before:bg-no-repeat before:bg-cover before:bg-center
+         before:bg-[radial-gradient(70%_70%_at_50%_50%,_#6b7280_0%,_#ffffff_85%)]
+         dark:before:bg-[radial-gradient(70%_70%_at_50%_50%,_#E5E4E2_0%,_#0b0f17_85%)]
+         before:[mask-image:radial-gradient(closest-side_at_50%_50%,_#000_75%,_transparent_100%)]
+         before:[-webkit-mask-image:radial-gradient(closest-side_at_50%_50%,_#000_75%,_transparent_100%)]
+         before:[mask-repeat:no-repeat] before:[-webkit-mask-repeat:no-repeat]">
+            <img
+                v-if="gameStore.pokemon.imageUrl"
+                :key="gameStore.pokemon.imageUrl"
+                :src="gameStore.pokemon.imageUrl"
+                class="absolute inset-0 w-full h-full object-contain z-0"
+                style="mask: none; -webkit-mask: none;"
+                loading="lazy"
+            />
 
-              <div v-show="!state.revealed" class="absolute inset-0 z-10 pointer-events-none" :style="silhouetteClass" aria-hidden="true"></div>
-            </div>
+            <div v-show="!gameStore.pokemon.revealed" class="absolute inset-0 z-10 pointer-events-none" :style="silhouetteClass" aria-hidden="true"></div>
           </div>
         </div>
 
         <p class="text-sm font-poppins text-center text-pretty">
-          <span v-if="state.error" class="text-rose-400">{{ state.error }}</span>
-          <span v-else>{{ state.flavor }}</span>
+          <span v-if="gameStore.isError" class="text-rose-400">{{ gameStore.errorMessage }}</span>
+          <span v-else>{{ gameStore.pokemon.flavor }}</span>
         </p>
       </div>
     </div>
@@ -29,11 +35,21 @@
 
 <script setup>
 
+import {useGameStore} from "~/stores/gameStore";
+
+
+const gameStore = useGameStore()
+const colorMode = useColorMode()
+
 const silhouetteClass = computed(() => {
+
+  if (!gameStore?.pokemon?.imageUrl) return;
+
+  const backgroundColor = colorMode.value === 'dark' ? '#E5E4E2' : '#6b7280'
   return {
-    backgroundColor: '#E5E4E2',
-    WebkitMaskImage: `url(${state.imageUrl})`,
-    maskImage: `url(${state.imageUrl})`,
+    backgroundColor: backgroundColor,
+    WebkitMaskImage: `url(${gameStore.pokemon.imageUrl})`,
+    maskImage: `url(${gameStore.pokemon.imageUrl})`,
     WebkitMaskRepeat: 'no-repeat',
     maskRepeat: 'no-repeat',
     WebkitMaskPosition: 'center',
@@ -46,45 +62,5 @@ const silhouetteClass = computed(() => {
   }
 })
 
-const state = reactive({
-  loading: true,
-  error: "",
-  id: null,
-  name: "",
-  flavor: "",
-  imageUrl: "",
-  revealed: false,
-});
-
-async function loadRandom() {
-  try {
-    state.loading = true;
-    state.error = "";
-    state.revealed = false;
-    state.id = null;
-    state.name = "";
-    state.flavor = "";
-    state.imageUrl = "";
-
-    const data = await $fetch("/api/random-pokemon");
-    if (data?.error) {
-      state.error = data.error || "Unknown error.";
-      return;
-    }
-    state.id = data.id;
-    state.name = data.name;
-    state.flavor = data.flavor;
-    state.imageUrl = data.imageUrl;
-  } catch (e) {
-    state.error = "Failed to load Pokémon. Please try again.";
-  } finally {
-    state.loading = false;
-  }
-}
-
-function reveal() {
-  state.revealed = true;
-}
-
-onMounted(loadRandom);
+onMounted(gameStore.loadRandomPokemon);
 </script>
