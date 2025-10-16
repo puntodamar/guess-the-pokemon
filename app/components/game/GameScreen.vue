@@ -3,7 +3,7 @@
     <div class="flex-1 flex items-center justify-center">
       <div class="w-full max-w-2xl">
         <div class="relative flex items-center justify-center">
-          <div :class="imageLoaderClass" class="relative isolate w-64 h-64 md:w-80 md:h-80 overflow-visible transition-opacity duration-700 ease-out">
+          <div :class="imageLoaderClass" class="relative isolate w-55 h-55 md:w-80 md:h-80 overflow-visible transition-opacity rounded-full duration-700 ease-out">
             <img
                 @load="pokemonImageLoaded"
                 :key="gameStore.pokemon.imageUrl"
@@ -13,6 +13,8 @@
                 style="mask: none; -webkit-mask: none;"
                 loading="lazy"
             />
+
+
 
             <div v-show="!gameStore.pokemon.revealed" class="absolute inset-0 z-10 pointer-events-none" :style="silhouetteClass" aria-hidden="true"></div>
           </div>
@@ -42,7 +44,7 @@
 <!--        </p>-->
 
 
-        <p class="text-sm font-poppins text-center text-pretty mt-25">
+        <p class="text-sm font-poppins text-center text-pretty mt-20 md:mt-35 mx-10">
           <span
               v-show="gameStore.gameState !== GameStateError && gameStore.pokemon.imageReady"
               :key="gameStore.pokemon.imageUrl"
@@ -76,22 +78,22 @@ const pokemonImageLoaded = () => {
 const imageLoaderClass = computed(() => {
 
   if(!gameStore.pokemon.imageReady) return "opacity-0";
+  const gradient = colorMode.value === 'dark' ?
+      'before:bg-[radial-gradient(50%_50%_at_50%_50%,_#ffffff_10%,_#ffffff_5%,_transparent_100%)]'
+      : 'before:bg-[radial-gradient(50%_50%_at_50%_50%,_#6b7280_10%,_#6b7280_5%,_transparent_100%)]'
+
   return `
-               opacity-100 before:content-[''] before:absolute before:-inset-16 before:z-0 before:pointer-events-none
-               before:bg-no-repeat before:bg-cover before:bg-center
-               before:bg-[radial-gradient(70%_70%_at_50%_50%,_#6b7280_0%,_#ffffff_85%)]
-               dark:before:bg-[radial-gradient(70%_70%_at_50%_50%,_#E5E4E2_0%,_#0b0f17_85%)]
-               before:[mask-image:radial-gradient(closest-side_at_50%_50%,_#000_75%,_transparent_100%)]
-               before:[-webkit-mask-image:radial-gradient(closest-side_at_50%_50%,_#000_75%,_transparent_100%)]
-               before:[mask-repeat:no-repeat] before:[-webkit-mask-repeat:no-repeat]
-               `
+    opacity-100 before:content-[''] before:absolute before:-inset-13 md:before:-inset-20 inset-0 before:z-0 before:pointer-events-none
+    before:bg-no-repeat before:bg-cover before:bg-center
+    ${gradient}
+ `
 })
 
 const silhouetteClass = computed(() => {
 
   if (!gameStore?.pokemon?.imageUrl) return;
 
-  const backgroundColor = colorMode.value === 'dark' ? '#E5E4E2' : '#6b7280'
+  const backgroundColor = colorMode.value === 'dark' ? '#E5E4E2' : '#0b1220'
   return {
     backgroundColor: backgroundColor,
     WebkitMaskImage: `url(${gameStore.pokemon.imageUrl})`,
