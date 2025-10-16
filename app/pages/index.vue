@@ -46,7 +46,9 @@
           <h3 class="text-2xl font-ui font-semibold">Max Streaks</h3>
           <p class="font-body text-xl">0</p>
         </div>
-        <button class="btn btn-primary mx-auto" @click="gameStore.loadRandomPokemon()">Next</button>
+        <button class="btn mx-auto bg-pokemon-blue" @click="gameStore.revealPokemon()">Reveal</button>
+        <button class="btn btn-primary mx-auto " @click="gameStore.loadRandomPokemon()">Next</button>
+
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <template>
   <section class="flex flex-col items-center">
     <p class="mb-40 ">
-      <span class="font-ui text-5xl font-semibold tracking-tight mr-5" :class="{invisible: !gameStore.pokemon.imageReady}">It's a</span>
+      <span class="font-ui text-5xl font-semibold tracking-tight mr-5" :class="{invisible: !gameStore.pokemon.imageReady}">{{formatVowels}}</span>
       <span class="text-5xl font-pokemon title" :class="{invisible: !gameStore.pokemon.imageReady}">{{`${gameStore.pokemon.name}!`}}</span>
     </p>
 
@@ -71,7 +71,9 @@ import FlavorInfo from "~/components/game/FlavorInfo.vue";
 
 const gameStore = useGameStore()
 const colorMode = useColorMode()
+const vowels = ['a', 'e', 'i', 'o', 'u'];
 
+const formatVowels = computed(() => vowels.includes(gameStore?.pokemon?.name?.charAt(0)) ? "It's an" : "It's a")
 const pokemonImageLoaded = () => {
   gameStore.pokemon.imageReady = true
 }
@@ -83,7 +85,7 @@ const imageLoaderClass = computed(() => {
 
   if(!gameStore.pokemon.imageReady) return "opacity-0";
   const gradient = colorMode.value === 'dark' ?
-      'before:bg-[radial-gradient(50%_50%_at_50%_50%,_#ffffff_10%,_#ffffff_5%,_transparent_100%)]'
+      'opacity-100 before:bg-[radial-gradient(50%_50%_at_50%_50%,_#ffffff_10%,_#ffffff_5%,_transparent_100%)]'
       : 'before:bg-[radial-gradient(50%_50%_at_50%_50%,_#6b7280_10%,_#6b7280_5%,_transparent_100%)]'
 
   return `
