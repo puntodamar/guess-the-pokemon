@@ -68,6 +68,7 @@
 
     body {
         background-color: var(--color-surface);
+
     }
 }
 
@@ -86,7 +87,7 @@
     }
 
     .title {
-        @apply text-pokemon-heading text-shadow-pokemon-heading-shadow tracking-widest text-shadow-lg  font-pokemon shadow-2xl;
+        @apply text-pokemon-heading tracking-widest font-pokemon ;
     }
 
     .btn-primary {
