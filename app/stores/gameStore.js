@@ -14,6 +14,7 @@ export const useGameStore = defineStore('game-store', () => {
         flavor: null,
         imageUrl: null,
         revealed: false,
+        imageReady: false
     })
     
     function revealPokemon() {
@@ -22,7 +23,7 @@ export const useGameStore = defineStore('game-store', () => {
         }
     }
     
-    function isError()        {  }
+    function isError()        { return gameState.value === GameStateError  }
     function isLoadingState() { return gameState.value === GameStateLoading }
     
     function setGameState(next) {
@@ -32,6 +33,7 @@ export const useGameStore = defineStore('game-store', () => {
     async function loadRandomPokemon() {
         try {
             isLoading.value = true
+            pokemon.value.imageReady = false
             gameState.value = GameStateLoading
             errorMessage.value = null
             pokemon.value = { id: null, name: null, flavor: null, imageUrl: null, revealed: false }
@@ -59,6 +61,7 @@ export const useGameStore = defineStore('game-store', () => {
             errorMessage.value = 'Failed to load Pokémon. Please try again.'
         } finally {
             isLoading.value = false
+            console.log(pokemon.value.flavor)
         }
     }
     
