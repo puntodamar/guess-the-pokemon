@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @theme {
-
+    --pokemon-heading: #3B5CA8;
     --pokemon-yellow: #F8D94E;
     --pokemon-blue:   #3B5CA8;
     --pokemon-red:    #D86A58;
@@ -23,6 +23,8 @@
     --font-body:    "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
     --font-poppins: "Poppins", ui-sans-serif, system-ui, sans-serif;
 
+    --color-pokemon-heading: var(--pokemon-heading);
+    --color-pokemon-heading-shadow: var(--pokemon-heading-shadow);
     --color-pokemon-yellow: var(--pokemon-yellow);
     --color-pokemon-blue:   var(--pokemon-blue);
     --color-pokemon-red:    var(--pokemon-red);
@@ -38,6 +40,8 @@
 
 
 .dark-mode {
+    --pokemon-heading: #F7D64A;
+    --pokemon-heading-shadow: #1E3A8A;
     --pokemon-yellow: #F7D64A;
     --pokemon-blue:   #1E3A8A;
     --pokemon-red:    #C85C4C;
@@ -54,11 +58,16 @@
     --poke-shadow: rgba(0,0,0,0.75);
 }
 
+
 @layer base {
     html {
         font-family: var(--font-body);
         color: var(--color-text);
         background: var(--color-surface);
+    }
+
+    body {
+        background-color: var(--color-surface);
     }
 }
 
@@ -74,6 +83,10 @@
         @apply inline-flex items-center justify-center rounded-lg px-5 py-3
         font-semibold transition active:scale-95 hover:cursor-pointer;
         font-family: var(--font-poppins);
+    }
+
+    .title {
+        @apply text-pokemon-heading text-shadow-pokemon-heading-shadow tracking-widest text-shadow-lg  font-pokemon shadow-2xl;
     }
 
     .btn-primary {

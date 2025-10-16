@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-dvh flex flex-col bg-surface">
+  <div class="min-h-dvh flex flex-col ">
     <app-header/>
     <slot />
     <app-footer/>
