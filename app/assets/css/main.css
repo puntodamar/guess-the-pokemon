@@ -2,60 +2,34 @@
 @import "tailwindcss";
 
 @theme {
-    --pokemon-heading: #3B5CA8;
     --pokemon-yellow: #F8D94E;
     --pokemon-blue:   #3B5CA8;
-    --pokemon-red:    #D86A58;
 
-    --surface:   #ffffff;
-    --surface-2: #f6f7f9;
-    --surface-3: #eef0f4;
-    --text:      #0b1220;
-    --muted:     #6b7280;
-    --border:    #d7dbe3;
-    --ring:      #3B5CA8;
+    --pokemon-red:    #D86A58;
+    --text: #ffffff;
+    --surface: #3498DB;
 
     --poke-stroke: #2a75bb;
-    --poke-shadow: rgba(0,0,0,0.45);
 
 
     --font-pokemon: "Pokemon Solid", ui-sans-serif, system-ui, sans-serif;
     --font-body:    "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
     --font-poppins: "Poppins", ui-sans-serif, system-ui, sans-serif;
 
-    --color-pokemon-heading: var(--pokemon-heading);
-    --color-pokemon-heading-shadow: var(--pokemon-heading-shadow);
+    --color-text: var(--text);
     --color-pokemon-yellow: var(--pokemon-yellow);
     --color-pokemon-blue:   var(--pokemon-blue);
     --color-pokemon-red:    var(--pokemon-red);
 
     --color-surface:   var(--surface);
-    --color-surface-2: var(--surface-2);
-    --color-surface-3: var(--surface-3);
-    --color-text:      var(--text);
-    --color-muted:     var(--muted);
-    --color-border:    var(--border);
-    --color-ring:      var(--ring);
 }
 
 
 .dark-mode {
-    --pokemon-heading: #F7D64A;
-    --pokemon-heading-shadow: #1E3A8A;
     --pokemon-yellow: #F7D64A;
     --pokemon-blue:   #1E3A8A;
     --pokemon-red:    #C85C4C;
-
-    --surface:   #0b0f17;
-    --surface-2: #111827;
-    --surface-3: #1f2937;
-    --text:      #e5e7eb;
-    --muted:     #a1a1aa;
-    --border:    #2d3748;
-    --ring:      #1E3A8A;
-
-    --poke-stroke: #1e40af;
-    --poke-shadow: rgba(0,0,0,0.75);
+    --surface:   #132A4A;
 }
 
 
@@ -87,34 +61,30 @@
     }
 
     .title {
-        @apply text-pokemon-heading tracking-widest font-pokemon ;
+        @apply text-pokemon-yellow tracking-widest font-pokemon ;
     }
+
+    .ui-label {
+        @apply text-pokemon-yellow text-2xl font-semibold;
+        font-family: var(--font-poppins);
+        -webkit-text-stroke: 5px var(--pokemon-blue);
+        paint-order: stroke fill;
+    }
+
+    .title-outline { -webkit-text-stroke: 10px var(--pokemon-blue); paint-order: stroke fill; }
 
     .btn-primary {
         @apply bg-[var(--color-pokemon-yellow)] text-[color:var(--color-pokemon-blue)];
     }
+
     .btn-primary:hover { filter: brightness(1.08); }
 
     .btn-normal {
-        @apply bg-[var(--color-surface-2)] text-[color:var(--color-text)];
+        @apply bg-[var(--color-pokemon-blue)] text-[color:var(--color-text)];
     }
 
-    .card {
-        @apply rounded-2xl p-6 border;
-        background: var(--color-surface-2);
-        border-color: var(--color-border);
-        color: var(--color-text);
-        box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    .hotkey {
+        @apply inline-flex items-center justify-start gap-2 border border-[var(--color-pokemon-blue)] rounded-lg py-2 px-3 leading-none;
     }
 
-    .input {
-        @apply w-full rounded-lg px-3 py-2 border outline-none transition;
-        background: var(--color-surface);
-        border-color: var(--color-border);
-        color: var(--color-text);
-    }
-    .input:focus {
-        box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-ring) 35%, transparent);
-        border-color: var(--color-ring);
-    }
 }

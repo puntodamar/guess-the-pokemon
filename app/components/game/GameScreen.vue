@@ -2,7 +2,7 @@
   <section class="flex flex-col items-center">
     <p class="mb-40 ">
       <span class="font-ui text-5xl font-semibold tracking-tight mr-5" :class="{invisible: !gameStore.pokemon.imageReady}">{{formatVowels}}</span>
-      <span class="text-5xl font-pokemon title" :class="{invisible: !gameStore.pokemon.imageReady}">{{`${gameStore.pokemon.name}!`}}</span>
+      <span class="text-5xl font-pokemon title title-outline" :class="{invisible: !gameStore.pokemon.imageReady}">{{`${gameStore.pokemon.name}!`}}</span>
     </p>
 
     <div class="flex items-center justify-center">
@@ -35,7 +35,7 @@
                 playsinline
                 preload="auto"
             />
-            <span class="opacity-60">Loading Pokédex entry…</span>
+            <span>Loading Pokédex entry…</span>
           </div>
 
 
@@ -84,9 +84,9 @@ const pokemonImageLoaded = () => {
 const imageLoaderClass = computed(() => {
 
   if(!gameStore.pokemon.imageReady) return "opacity-0";
-  const gradient = colorMode.value === 'dark' ?
-      'opacity-100 before:bg-[radial-gradient(50%_50%_at_50%_50%,_#ffffff_10%,_#ffffff_5%,_transparent_100%)]'
-      : 'before:bg-[radial-gradient(50%_50%_at_50%_50%,_#6b7280_10%,_#6b7280_5%,_transparent_100%)]'
+  const darkGradient = 'before:bg-[radial-gradient(50%_50%_at_50%_50%,_#ffffff_10%,_#ffffff_5%,_transparent_100%)]'
+  const lightGradient = 'before:bg-[radial-gradient(50%_50%_at_50%_50%,_#6b7280_10%,_#6b7280_5%,_transparent_100%)]'
+  const gradient = colorMode.value === 'dark' ? darkGradient : darkGradient
 
   return `
     opacity-100 before:content-[''] before:absolute before:-inset-13 md:before:-inset-20 inset-0 before:z-0 before:pointer-events-none
@@ -99,9 +99,10 @@ const silhouetteClass = computed(() => {
 
   if (!gameStore?.pokemon?.imageUrl) return;
 
-  const backgroundColor = colorMode.value === 'dark' ? '#E5E4E2' : '#0b1220'
+  // const backgroundColor = colorMode.value === 'dark' ? '#E5E4E2' : '#0b1220'
   return {
-    backgroundColor: backgroundColor,
+    // backgroundColor: backgroundColor,
+    backgroundColor: '#0b1220',
     WebkitMaskImage: `url(${gameStore.pokemon.imageUrl})`,
     maskImage: `url(${gameStore.pokemon.imageUrl})`,
     WebkitMaskRepeat: 'no-repeat',

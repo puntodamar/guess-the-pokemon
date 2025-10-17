@@ -4,7 +4,7 @@
 <!--      <h1 class="text-sm  title">Guess The Pokemon!</h1>-->
     </NuxtLink>
     <div class="flex-1"></div>
-    <button @click="toggleMode" class="btn btn-normal outline-1 outline-pokemon-heading">
+    <button @click="toggleMode" class="btn btn-normal">
       <Icon :name="iconName" />
     </button>
   </div>
