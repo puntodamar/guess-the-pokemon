@@ -1,3 +1,5 @@
+import {capitalizeFirstLetter} from "~/composables/capitalize.js";
+
 export const GameStateLoading = 'GameStateLoading'
 export const GameStatePlaying = 'GameStatePlaying'
 export const GameStateError   = 'GameStateError'
@@ -8,7 +10,9 @@ export const useGameStore = defineStore('game-store', () => {
     const gameState = ref(GameStateInit)
     const errorMessage = ref(null)
     const isLoading = ref(false)
-    const generation = null
+    const userInput = ref(null)
+    let generation = null
+    let totalGeneration = null
     
     const pokemon = ref({
         id: null,
@@ -25,6 +29,10 @@ export const useGameStore = defineStore('game-store', () => {
         }
     }
     
+    function resetUserInput() {
+        userInput.value = null
+    }
+    
     function isError()        { return gameState.value === GameStateError  }
     function isLoadingState() { return gameState.value === GameStateLoading }
     
@@ -33,17 +41,22 @@ export const useGameStore = defineStore('game-store', () => {
     }
     
     async function getGeneration(){
+        if(totalGeneration) return totalGeneration;
+        
         const data = await $fetch('/api/generation')
         if (!data || data.error) {
             gameState.value = GameStateError
             errorMessage.value = String(data?.error || 'Unknown error')
             
         }
-        return data.count
+        
+        totalGeneration = data.count
+        return totalGeneration
         
     }
     async function loadRandomPokemon() {
         try {
+            userInput.value = null
             isLoading.value = true
             pokemon.value.imageReady = false
             gameState.value = GameStateLoading
@@ -59,13 +72,13 @@ export const useGameStore = defineStore('game-store', () => {
             
             pokemon.value = {
                 id: data.id,
-                name: data.name,
+                name: capitalizeFirstLetter(data.name),
                 flavor: data.flavor,
                 imageUrl: data.imageUrl,
                 revealed: false,
             }
             gameState.value = GameStatePlaying
-            
+            document.getElementById('pokemon-input').focus()
             
         } catch (e) {
             gameState.value = GameStateError
@@ -76,8 +89,8 @@ export const useGameStore = defineStore('game-store', () => {
     }
     
     return {
-        gameState, errorMessage, isLoading, pokemon,
-        revealPokemon, setGameState, loadRandomPokemon,getGeneration,
+        gameState, errorMessage, isLoading, pokemon, userInput,
+        revealPokemon, setGameState, loadRandomPokemon,getGeneration, resetUserInput,
         isError, isLoadingState,
     }
 })
