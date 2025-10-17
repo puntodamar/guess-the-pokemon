@@ -1,8 +1,8 @@
 <template>
   <section class="flex flex-col items-center">
-    <p class="mb-40 ">
-      <span class="font-ui text-5xl font-semibold tracking-tight mr-5" :class="{invisible: !gameStore.pokemon.imageReady}">{{formatVowels}}</span>
-      <span class="text-5xl font-pokemon title title-outline" :class="{invisible: !gameStore.pokemon.imageReady}">{{`${gameStore.pokemon.name}!`}}</span>
+    <p class="mt-15 mb-30 lg:mb-40 ">
+      <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text" :class="{invisible: !gameStore.pokemon.imageReady}">{{formatVowels}}</span>
+      <span class="text-2xl lg:text-5xl font-pokemon title title-outline" :class="{invisible: !gameStore.pokemon.imageReady}">{{`${gameStore.pokemon.name}!`}}</span>
     </p>
 
     <div class="flex items-center justify-center">
@@ -35,7 +35,7 @@
                 playsinline
                 preload="auto"
             />
-            <span>Loading Pokédex entry…</span>
+            <span class="text-text">Loading Pokédex entry…</span>
           </div>
 
 
@@ -44,17 +44,20 @@
 <!--        <flavor-info class="mt-25" />-->
 
 
-        <p class="text-sm font-body text-center text-pretty mt-30 mx-10">
+        <p class="text-sm font-body text-center text-pretty mt-30 mx-10 hidden md:block">
           <span
               v-show="gameStore.gameState !== GameStateError && gameStore.pokemon.imageReady"
               :key="gameStore.pokemon.imageUrl"
-              class="transition-opacity duration-500 ease-out"
+              class="transition-opacity duration-500 ease-out text-text"
               :class="gameStore.pokemon.imageReady ? 'opacity-100' : 'opacity-0'">
             {{ gameStore.pokemon.flavor }}
           </span>
           <span v-if="gameStore.gameState === GameStateError" class="text-pokemon-red">{{ gameStore.errorMessage }}</span>
 
         </p>
+
+
+      <pokemon-name-input/>
 
       </div>
     </div>
@@ -65,6 +68,7 @@
 
 import {useGameStore} from "~/stores/gameStore";
 import FlavorInfo from "~/components/game/FlavorInfo.vue";
+import PokemonNameInput from "~/components/game/PokemonNameInput.vue";
 
 
 

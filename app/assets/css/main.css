@@ -30,6 +30,7 @@
     --pokemon-blue:   #1E3A8A;
     --pokemon-red:    #C85C4C;
     --surface:   #132A4A;
+
 }
 
 
@@ -83,8 +84,13 @@
         @apply bg-[var(--color-pokemon-blue)] text-[color:var(--color-text)];
     }
 
+    .ui-text {
+        @apply text-text text-xl;
+        font-family: var(--font-poppins), serif;
+    }
+
     .hotkey {
-        @apply inline-flex items-center justify-start gap-2 border border-[var(--color-pokemon-blue)] rounded-lg py-2 px-3 leading-none;
+        @apply inline-flex items-center justify-start gap-2 border border-[var(--color-pokemon-blue)] rounded-lg py-2 px-3 leading-none w-25  justify-center;
     }
 
 }
