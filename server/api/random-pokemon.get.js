@@ -15,9 +15,10 @@ function normalizeLetters(s) {
     return String(s || "").toLowerCase().replace(/[^a-z]/g, "");
 }
 
-export default defineEventHandler(async (generation = null) => {
+export default defineEventHandler(async (event) => {
+    const query = getQuery(event)
     let url = "https://pokeapi.co/api/v2/pokemon-species?limit=1"
-    if(generation) url += `&generation=${generation}`;
+    if(query.gen) url += `&generation=${query.gen}`;
     const speciesMeta = await $fetch(url);
     const total = speciesMeta?.count || 1010;
     

@@ -6,7 +6,7 @@
         v-model="gameStore.userInput"
         autofocus
         type="text"
-        class="w-full rounded-xl px-4 py-3 text-center text-xl font-ui text-pokemon-yellow font-bold focus:outline-none uppercase"
+        class="w-full rounded-xl px-4 py-3 text-center text-xl font-ui text-pokemon-yellow font-bold focus:outline-none uppercase "
     />
   </form>
 </template>
