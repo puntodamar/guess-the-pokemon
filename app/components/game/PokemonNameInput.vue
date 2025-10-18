@@ -64,6 +64,12 @@ function onGlobalKeydown(e) {
     gameStore.resetUserInput()
     return
   }
+
+  if (isEnter) {
+    e.preventDefault()
+    gameStore.playPokemonCry()
+    gameStore.submitName()
+  }
 }
 
 onMounted(() => {
