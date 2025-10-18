@@ -12,8 +12,11 @@ export const useGameStore = defineStore('game-store', () => {
     const isLoading = ref(false)
     const userInput = ref(null)
     const mobileKeyboardOpen = ref(false)
+    const inputResult = ref(null)
     let generation = null
     let totalGeneration = null
+    const points = reactive({ point: 0, currentStreak: 0, longestStreak: 0})
+    const controls = reactive({audio: true})
     
     const pokemon = ref({
         id: null,
@@ -21,7 +24,8 @@ export const useGameStore = defineStore('game-store', () => {
         flavor: null,
         imageUrl: null,
         revealed: false,
-        imageReady: false
+        imageReady: false,
+        cry: null,
     })
     
     function revealPokemon() {
@@ -48,6 +52,35 @@ export const useGameStore = defineStore('game-store', () => {
     function setGameState(next) {
         if (GameStates.includes(next)) gameState.value = next
     }
+    
+    function submitName() {
+        
+        if(pokemon.value.name === capitalizeFirstLetter(userInput.value)) {
+            points.currentStreak += 1
+            points.point += 1
+            inputResult.value = true
+            return true
+        } else {
+            if (points.currentStreak >= 0 && points.longestStreak < points.currentStreak ) {
+                points.longestStreak = points.currentStreak
+            }
+            points.currentStreak = 0
+            inputResult.value = false
+            // userInput.value = ""
+            return false
+        }
+        
+
+    }
+    
+    function clearResult() {
+        inputResult.value = null
+    }
+    
+    function toggleAudio() {
+        controls.audio = !controls.audio
+    }
+    
     
     async function getGeneration(){
         if(totalGeneration) return totalGeneration;
@@ -86,12 +119,11 @@ export const useGameStore = defineStore('game-store', () => {
                 name: capitalizeFirstLetter(data.name),
                 flavor: data.flavor,
                 imageUrl: data.imageUrl,
+                cry: data.cryUrl,
                 revealed: false,
             }
             gameState.value = GameStatePlaying
-            console.log("load pokemon")
-            const input = document.getElementById('pokemon-input')
-            if(input) input.focus()
+            getBaseAudio(data.cryUrl)
             
         } catch (e) {
             gameState.value = GameStateError
@@ -102,9 +134,26 @@ export const useGameStore = defineStore('game-store', () => {
         }
     }
     
+    function getBaseAudio(url) {
+        const audio = new Audio(url)
+        audio.preload = 'auto'
+        audio.crossOrigin = 'anonymous' //
+        return audio
+    }
+    
+    function playPokemonCry() {
+        const cry = pokemon.value.cry
+        if(!cry) return
+        
+        const base = getBaseAudio(cry)
+        const instance = base.cloneNode()
+        instance.play()
+    }
+    
     return {
-        gameState, errorMessage, isLoading, pokemon, userInput, mobileKeyboardOpen,
-        revealPokemon, setGameState, loadRandomPokemon,getGeneration, resetUserInput, setGeneration, setKeyboardOpen,
+        gameState, errorMessage, isLoading, pokemon, userInput, mobileKeyboardOpen, points, inputResult,
+        revealPokemon, setGameState, loadRandomPokemon,getGeneration, resetUserInput, setGeneration, setKeyboardOpen, submitName, controls,
+        clearResult, toggleAudio, playPokemonCry,
         isError, isLoadingState,
     }
 })
