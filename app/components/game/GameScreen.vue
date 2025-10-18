@@ -4,7 +4,7 @@
     <pokemon-name-display :classes="'xl:hidden xl:mt-30'" mode="mobile" />
 
     <div class="flex justify-center">
-      <div class="w-full max-w-2xl">
+      <div  class="w-full max-w-2xl">
         <div class="relative flex items-center justify-center">
 
           <div :class="imageLoaderClass" class="relative isolate  overflow-visible transition-opacity rounded-full duration-700 ease-out">
