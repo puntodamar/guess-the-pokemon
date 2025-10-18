@@ -16,7 +16,7 @@ export const useGameStore = defineStore('game-store', () => {
     let generation = null
     let totalGeneration = null
     const points = reactive({ point: 0, currentStreak: 0, longestStreak: 0})
-    const controls = reactive({audio: true})
+    const controls = reactive({audio: true, showBadge: false})
     
     const pokemon = ref({
         id: null,

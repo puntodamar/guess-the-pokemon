@@ -1,8 +1,10 @@
 <template>
-  <p class="text-center" :class="classes">
-    <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text" :class="{invisible: !gameStore.pokemon.imageReady}">{{formatVowels}}</span>
+
+  <div class="text-center" :class="classes">
+    <p class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text text-center" :class="questionClasses">Guess The Pokemon</p>
+    <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text" :class="{invisible: !gameStore.controls.showBadge}">{{formatVowels}}</span>
     <span class="font-pokemon title title-outline" :class="pokemonNameClass">{{`${gameStore.pokemon.name} !`}}</span>
-  </p>
+  </div>
 </template>
 <script setup>
 import {useGameStore} from "~/stores/gameStore";
@@ -12,6 +14,13 @@ const props = defineProps({
   mode: {type: String, required: true},
 })
 const gameStore = useGameStore();
+
+const questionClasses = computed(() => {
+  let classes = []
+  // classes.push(gameStore.mobileKeyboardOpen ? " mb-15" : " mb-30")
+  classes.push(gameStore.controls.showBadge ? "invisible" : "visible")
+  return classes
+})
 
 const classes = computed(() => {
 
@@ -25,7 +34,7 @@ const classes = computed(() => {
 const pokemonNameClass = computed(() => {
   let classes = [];
 
-  if(!gameStore.pokemon.imageReady) classes.push("invisible");
+  if(!gameStore.controls.showBadge) classes.push("invisible");
   classes.push(gameStore.mobileKeyboardOpen ? "text-xl lg:text-5xl" : " text-2xl lg:text-5xl") ;
   return classes;
 })

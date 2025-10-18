@@ -21,7 +21,7 @@
       />
 
       <div
-          v-show="showBadge"
+          v-show="gameStore.controls.showBadge"
           class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center select-none pointer-events-none text-text font-bold text-sm backdrop-blur-sm"
           :class="{'opacity-100': gameStore.pokemon.imageReady, 'opacity-0': !gameStore.pokemon.imageReady}"
           id="input-timer"
@@ -41,7 +41,6 @@ const gameStore = useGameStore()
 const keyboardOffset = ref(0)
 const pokemonInput = ref(null)
 const timeLeft = ref(3)
-const showBadge = ref(false)
 let countdownTimer = null
 
 const inputClass = computed(() => {
@@ -53,7 +52,7 @@ const inputClass = computed(() => {
 })
 
 function onGlobalKeydown(e) {
-  if (showBadge.value) return
+  if (gameStore.controls.showBadge) return
   if (e.ctrlKey || e.metaKey || e.altKey || e.isComposing || e.repeat) return
 
   const isSpace  = e.key === ' ' || e.code === 'Space'
@@ -85,7 +84,7 @@ function tick() {
 }
 
 function triggerShowBadge() {
-  showBadge.value = true
+  gameStore.controls.showBadge = true
   timeLeft.value = 3
   clearInterval(countdownTimer)
   gameStore.revealPokemon()
@@ -95,7 +94,7 @@ function triggerShowBadge() {
 function stopBadgeCountdown(reset = false) {
   clearInterval(countdownTimer)
   countdownTimer = null
-  showBadge.value = false
+  gameStore.controls.showBadge = false
   if(reset) resetGame()
 }
 

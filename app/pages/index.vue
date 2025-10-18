@@ -45,15 +45,4 @@ const gameStore = useGameStore();
 const gameScreenClass = computed(() => {
   return gameStore.mobileKeyboardOpen ? 'justify-start mt-17' : 'justify-center'
 })
-
-const pokemonNameClass = computed(() => {
-  let classes = "";
-  if(!gameStore.pokemon.imageReady) classes += "invisible";
-
-  classes += gameStore.mobileKeyboardOpen ? "text-xl lg:text-5xl" : " text-2xl lg:text-5xl";
-  return classes;
-})
-
-const vowels = ['A', 'I', 'U', 'E', 'O'];
-const formatVowels = computed(() => vowels.includes(gameStore?.pokemon?.name?.charAt(0)) ? "It's an" : "It's a")
 </script>
