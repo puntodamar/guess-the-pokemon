@@ -1,9 +1,7 @@
 <template>
   <section class="flex flex-col">
-    <p class="mt-0 xl:mt-15  lg:mb-40 text-center" :class="{'mb-15': gameStore.mobileKeyboardOpen, 'mb-30': !gameStore.mobileKeyboardOpen}">
-      <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text" :class="{invisible: !gameStore.pokemon.imageReady}">{{formatVowels}}</span>
-      <span class="font-pokemon title title-outline" :class="pokemonNameClass">{{`${gameStore.pokemon.name}!`}}</span>
-    </p>
+
+    <pokemon-name-display :classes="'xl:hidden xl:mt-30'" mode="mobile" />
 
     <div class="flex justify-center">
       <div class="w-full max-w-2xl">
@@ -64,22 +62,11 @@
 import {useGameStore} from "~/stores/gameStore";
 import FlavorInfo from "~/components/game/FlavorInfo.vue";
 import PokemonNameInput from "~/components/game/PokemonNameInput.vue";
+import PokemonNameDisplay from "~/components/game/PokemonNameDisplay.vue";
 
 const gameStore = useGameStore()
 const colorMode = useColorMode()
-const vowels = ['A', 'I', 'U', 'E', 'O'];
 
-const pokemonNameClass = computed(() => {
-  let classes = "";
-  if(!gameStore.pokemon.imageReady) classes += "invisible";
-
-  classes += gameStore.mobileKeyboardOpen ? "text-xl lg:text-5xl" : " text-2xl lg:text-5xl";
-  return classes;
-})
-
-
-
-const formatVowels = computed(() => vowels.includes(gameStore?.pokemon?.name?.charAt(0)) ? "It's an" : "It's a")
 const pokemonImageLoaded = () => {
   gameStore.pokemon.imageReady = true
 }
@@ -129,7 +116,4 @@ onMounted(() => {
     gameStore.loadRandomPokemon(generation)
   })
 })
-
-
-
 </script>

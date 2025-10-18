@@ -49,6 +49,14 @@ export const useGameStore = defineStore('game-store', () => {
         if (GameStates.includes(next)) gameState.value = next
     }
     
+    function submitName() {
+        if(pokemon.value.name === capitalizeFirstLetter(userInput.value)) {
+            alert('Correct name')
+            
+        }
+        alert('invalid name')
+    }
+    
     async function getGeneration(){
         if(totalGeneration) return totalGeneration;
         

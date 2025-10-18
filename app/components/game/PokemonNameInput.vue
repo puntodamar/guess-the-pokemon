@@ -44,10 +44,17 @@ function onGlobalKeydown(e) {
   const isSpace  = e.key === ' ' || e.code === 'Space'
   // const isLetter = e.key.length === 1 && /^[a-z]$/i.test(e.key)
 
+  const isEnter = e.code === 'Enter'
+
   if (isSpace) {
     e.preventDefault()
     gameStore.resetUserInput()
     return
+  }
+
+  if (isEnter) {
+    e.preventDefault()
+    gameStore.submitName()
   }
 }
 
