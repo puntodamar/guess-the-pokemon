@@ -84,11 +84,14 @@ export const useGameStore = defineStore('game-store', () => {
                 revealed: false,
             }
             gameState.value = GameStatePlaying
-            document.getElementById('pokemon-input').focus()
+            console.log("load pokemon")
+            const input = document.getElementById('pokemon-input')
+            if(input) input.focus()
             
         } catch (e) {
             gameState.value = GameStateError
             errorMessage.value = 'Failed to load Pokémon. Please try again.'
+            console.log(e)
         } finally {
             isLoading.value = false
         }

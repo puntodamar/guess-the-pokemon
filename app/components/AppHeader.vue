@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row items-center pt-5">
-    <button class="btn btn-normal lg:hidden">
+    <button class="btn btn-normal xl:hidden">
       <Icon name="mdi:cogs" />
     </button>
     <div class="flex-1"></div>
@@ -8,7 +8,7 @@
       <button @click="toggleMode" class="btn btn-normal">
         <Icon :name="iconName" />
       </button>
-      <button class="btn btn-normal lg:hidden">
+      <button class="btn btn-normal xl:hidden">
         <Icon name="material-symbols:leaderboard-outline" />
       </button>
 

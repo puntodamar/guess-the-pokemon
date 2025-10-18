@@ -1,11 +1,11 @@
 <template>
-  <section class="flex flex-col items-center">
-    <p class="mt-15 mb-30 lg:mb-40 ">
+  <section class="flex flex-col">
+    <p class="mt-15 mb-30 lg:mb-40 text-center">
       <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text" :class="{invisible: !gameStore.pokemon.imageReady}">{{formatVowels}}</span>
       <span class="text-2xl lg:text-5xl font-pokemon title title-outline" :class="{invisible: !gameStore.pokemon.imageReady}">{{`${gameStore.pokemon.name}!`}}</span>
     </p>
 
-    <div class="flex items-center justify-center">
+    <div class="flex justify-center">
       <div class="w-full max-w-2xl">
         <div class="relative flex items-center justify-center">
 
@@ -57,7 +57,7 @@
         </p>
 
 
-      <pokemon-name-input/>
+        <pokemon-name-input class="hidden lg:block" />
 
       </div>
     </div>
@@ -74,11 +74,12 @@ const gameStore = useGameStore()
 const colorMode = useColorMode()
 const vowels = ['a', 'e', 'i', 'o', 'u'];
 
+
+
 const formatVowels = computed(() => vowels.includes(gameStore?.pokemon?.name?.charAt(0)) ? "It's an" : "It's a")
 const pokemonImageLoaded = () => {
   gameStore.pokemon.imageReady = true
 }
-
 
 
 
@@ -123,4 +124,7 @@ onMounted(() => {
     gameStore.loadRandomPokemon(generation)
   })
 })
+
+
+
 </script>
