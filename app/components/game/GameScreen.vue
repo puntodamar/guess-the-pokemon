@@ -1,7 +1,7 @@
 <template>
   <section class="flex flex-col">
 
-    <pokemon-name-display :classes="'xl:hidden xl:mt-30'" mode="mobile" />
+    <pokemon-name-display :classes="'mt-0 xl:hidden xl:mt-30'" mode="mobile" />
 
     <div class="flex justify-center">
       <div  class="w-full max-w-2xl">

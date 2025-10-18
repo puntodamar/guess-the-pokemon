@@ -142,6 +142,7 @@ export const useGameStore = defineStore('game-store', () => {
     }
     
     function playPokemonCry() {
+        if (!controls.audio) return
         const cry = pokemon.value.cry
         if(!cry) return
         

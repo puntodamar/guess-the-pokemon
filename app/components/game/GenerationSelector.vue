@@ -44,9 +44,9 @@
     </div>
     <div class="bg-pokemon-yellow mt-3 py-1 px-3 rounded-lg transition-opacity duration-200 max-w-60"
          :class="showFlash ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'">
-      <span class="text-xs text-pokemon-blue text-center">
+      <p class="text-xs text-pokemon-blue text-center">
         Will be applied to the next pokemon
-      </span>
+      </p>
     </div>
 
   </div>
