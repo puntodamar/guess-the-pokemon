@@ -12,8 +12,8 @@
       <h3 class="ui-label">Longest Streak</h3>
       <p class="ui-text ">{{gameStore.points.longestStreak}}</p>
     </div>
-    <button class="btn btn-normal" @click="gameStore.revealPokemon()">Reveal</button>
-    <button class="btn btn-primary" @click="gameStore.loadRandomPokemon()">Next</button>
+<!--    <button class="btn btn-normal" @click="gameStore.revealPokemon()">Reveal</button>-->
+<!--    <button class="btn btn-primary" @click="gameStore.loadRandomPokemon()">Next</button>-->
 
   </div>
 </template>

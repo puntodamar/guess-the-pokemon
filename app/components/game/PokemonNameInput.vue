@@ -40,10 +40,14 @@ import {useGameStore} from "~/stores/gameStore.js";
 const gameStore = useGameStore()
 const keyboardOffset = ref(0)
 const pokemonInput = ref(null)
+const timeLeft = ref(3)
+const showBadge = ref(false)
+let countdownTimer = null
+
 const inputClass = computed(() => {
   let classes = []
   classes.push(gameStore.pokemon.imageReady ? "opacity-100" : "opacity-0")
-  classes.push(gameStore.inputResult === true ? "outline-pokemon-yellow text-yellow" : gameStore.inputResult === false ? "outline-pokemon-red text-pokemon-red" : "outline-text text-text")
+  classes.push(gameStore.inputResult === true ? "outline-pokemon-yellow text-pokemon-yellow" : gameStore.inputResult === false ? "outline-pokemon-red text-pokemon-red" : "outline-text text-text")
   classes.push(gameStore.inputResult === false ? "shake" : "")
   return classes
 })
@@ -66,20 +70,11 @@ onMounted(() => {
   window.addEventListener('keyup', onGlobalKeydown, { capture: true })
 })
 
-onBeforeUnmount(() => {
-  window.removeEventListener('keyup', onGlobalKeydown, { capture: true })
-})
-
-
-const timeLeft = ref(3)
-const showBadge = ref(false)
-let countdownTimer = null
-
 function tick() {
   timeLeft.value -= 1
   if (timeLeft.value <= 0) {
 
-    stopBadgeCountdown()
+    stopBadgeCountdown(true)
   }
 }
 
@@ -91,10 +86,14 @@ function triggerShowBadge() {
   countdownTimer = setInterval(tick, 1000)
 }
 
-function stopBadgeCountdown() {
+function stopBadgeCountdown(reset = false) {
   clearInterval(countdownTimer)
   countdownTimer = null
   showBadge.value = false
+  if(reset) resetGame()
+}
+
+function resetGame() {
   gameStore.resetUserInput()
   gameStore.loadRandomPokemon()
   gameStore.clearResult()
@@ -122,7 +121,10 @@ onMounted(() => {
 
 
 onBeforeUnmount(() => {
+  window.removeEventListener('keyup', onGlobalKeydown, { capture: true })
   stopBadgeCountdown()
+  subscribeNameInput()
+  clearInterval(countdownTimer)
   const vv = window.visualViewport
   if (!vv) return
   vv.removeEventListener('resize', updateKeyboardState)
@@ -133,14 +135,9 @@ const subscribeNameInput = gameStore.$onAction(({ name, after, onError }) => {
   if (name !== 'submitName') return
   after((correct) => {
     triggerShowBadge()
+
   })
 })
-
-onBeforeUnmount(() => {
-  subscribeNameInput()
-  clearInterval(countdownTimer)
-})
-
 
 </script>
 
@@ -161,7 +158,6 @@ onBeforeUnmount(() => {
 .shake {
   animation: shake 300ms ease-in-out;
   /* optional: emphasize the error state while shaking */
-  //box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.7); /* red-500-ish ring */
 }
 
 </style>
