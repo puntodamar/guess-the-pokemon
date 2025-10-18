@@ -5,7 +5,7 @@
     </p>
     <p v-else class="mb-0 mt-0 xl:mt-15 text-center" :class="[gameStore.mobileKeyboardOpen ? 'mb-15' : 'mb-30']">
       <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text" :class="{invisible: gameStore.inputResult === null}">{{formatVowels}}</span>
-      <span class="font-pokemon title title-outline" :class="pokemonNameClass">{{`${gameStore.pokemon.name}!`}}</span>
+      <span class="font-pokemon title title-outline" :class="pokemonNameClass">{{`${gameStore.pokemon.name} !`}}</span>
     </p>
 
     <div class="flex justify-center">

@@ -1,13 +1,18 @@
 <template>
   <div class="fixed inset-x-0 top-0 z-50 w-full flex flex-row items-center px-3 md:px-10 pt-3 md:pt-5">
-    <button class="btn btn-normal xl:hidden">
-      <Icon name="mdi:cogs" />
-    </button>
+    <div class="flex flex-row gap-2">
+      <button class="btn btn-normal xl:hidden">
+        <Icon name="mdi:cogs" />
+      </button>
+      <button @click="gameStore.toggleAudio" class="btn btn-normal lg:hidden">
+        <Icon :name="soundClass" size="1rem" />
+      </button>
+    </div>
 
     <div class="flex-1 min-w-0"></div>
 
     <div class="flex flex-row gap-x-2">
-      <button @click="gameStore.toggleAudio" class="btn btn-normal">
+      <button @click="gameStore.toggleAudio" class="btn btn-normal hidden lg:block">
         <Icon :name="soundClass" size="1rem" />
       </button>
       <button @click="toggleMode" class="btn btn-normal">
