@@ -6,7 +6,6 @@
     <span v-else-if="gameStore.errorMessage" class="text-rose-400">
       {{ gameStore.errorMessage }}
     </span>
-    <span v-else class="opacity-60">Loading Pokédex entry…</span>
   </p>
 </template>
 

@@ -11,6 +11,7 @@ export const useGameStore = defineStore('game-store', () => {
     const errorMessage = ref(null)
     const isLoading = ref(false)
     const userInput = ref(null)
+    const mobileKeyboardOpen = ref(false)
     let generation = null
     let totalGeneration = null
     
@@ -27,6 +28,10 @@ export const useGameStore = defineStore('game-store', () => {
         if (gameState.value === GameStatePlaying) {
             pokemon.value.revealed = true
         }
+    }
+    
+    function setKeyboardOpen(value) {
+        mobileKeyboardOpen.value = value
     }
     
     function resetUserInput() {
@@ -98,8 +103,8 @@ export const useGameStore = defineStore('game-store', () => {
     }
     
     return {
-        gameState, errorMessage, isLoading, pokemon, userInput,
-        revealPokemon, setGameState, loadRandomPokemon,getGeneration, resetUserInput, setGeneration,
+        gameState, errorMessage, isLoading, pokemon, userInput, mobileKeyboardOpen,
+        revealPokemon, setGameState, loadRandomPokemon,getGeneration, resetUserInput, setGeneration, setKeyboardOpen,
         isError, isLoadingState,
     }
 })

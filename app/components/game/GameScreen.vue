@@ -1,6 +1,6 @@
 <template>
   <section class="flex flex-col">
-    <p class="mt-15 mb-30 lg:mb-40 text-center">
+    <p class="mt-0 xl:mt-15 mb-30 lg:mb-40 text-center">
       <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text" :class="{invisible: !gameStore.pokemon.imageReady}">{{formatVowels}}</span>
       <span class="text-2xl lg:text-5xl font-pokemon title title-outline" :class="{invisible: !gameStore.pokemon.imageReady}">{{`${gameStore.pokemon.name}!`}}</span>
     </p>
@@ -9,7 +9,7 @@
       <div class="w-full max-w-2xl">
         <div class="relative flex items-center justify-center">
 
-          <div :class="imageLoaderClass" class="relative isolate w-55 h-55 md:w-80 md:h-80 overflow-visible transition-opacity rounded-full duration-700 ease-out">
+          <div :class="imageLoaderClass" class="relative isolate  overflow-visible transition-opacity rounded-full duration-700 ease-out">
             <img
                 @load="pokemonImageLoaded"
                 :key="gameStore.pokemon.imageUrl"
@@ -19,13 +19,10 @@
                 style="mask: none; -webkit-mask: none;"
                 loading="lazy"
             />
-
-
-
             <div v-show="!gameStore.pokemon.revealed" class="absolute inset-0 z-10 pointer-events-none" :style="silhouetteClass" aria-hidden="true"></div>
           </div>
 
-          <div v-if="!gameStore.pokemon.imageReady" class="absolute">
+          <div v-if="!gameStore.pokemon.imageReady" class="">
             <video
                 src="~/assets/images/loading.webm"
                 class=" mx-auto  object-contain"
@@ -35,13 +32,11 @@
                 playsinline
                 preload="auto"
             />
-            <span class="text-text">Loading Pokédex entry…</span>
+            <p class="text-text text-center">Loading Pokédex entry…</p>
           </div>
 
 
         </div>
-
-<!--        <flavor-info class="mt-25" />-->
 
 
         <p class="text-sm font-body text-center text-pretty mt-30 mx-10 hidden sm:block">
@@ -86,6 +81,8 @@ const pokemonImageLoaded = () => {
 const imageLoaderClass = computed(() => {
 
   if(!gameStore.pokemon.imageReady) return "opacity-0";
+  const size = gameStore.mobileKeyboardOpen ?  "w-25 h-25" : "w-55 h-55 md:w-80 md:h-80";
+
   const darkGradient = 'before:bg-[radial-gradient(50%_50%_at_50%_50%,_#ffffff_10%,_#ffffff_5%,_transparent_100%)]'
   const lightGradient = 'before:bg-[radial-gradient(50%_50%_at_50%_50%,_#6b7280_10%,_#6b7280_5%,_transparent_100%)]'
   const gradient = colorMode.value === 'dark' ? darkGradient : darkGradient
@@ -93,7 +90,7 @@ const imageLoaderClass = computed(() => {
   return `
     opacity-100 before:content-[''] before:absolute before:-inset-13 md:before:-inset-20 inset-0 before:z-0 before:pointer-events-none
     before:bg-no-repeat before:bg-cover before:bg-center
-    ${gradient}
+    ${gradient} ${size}
  `
 })
 

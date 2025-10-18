@@ -37,7 +37,7 @@ export default defineNuxtConfig({
         }
     },
 
-    modules: ['@nuxtjs/color-mode', '@nuxt/icon', '@pinia/nuxt'],
+    modules: ['@nuxtjs/color-mode', '@nuxt/icon', '@pinia/nuxt', '@nuxtjs/ngrok'],
     colorMode: {
         classSuffix: '-mode',
         preference: 'dark',
@@ -53,5 +53,8 @@ export default defineNuxtConfig({
     icon: {
         mode: 'css',
         cssLayer: 'base'
-    }
+    },
+    ngrok: {
+        // module options
+    },
 });

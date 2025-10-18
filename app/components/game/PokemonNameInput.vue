@@ -1,9 +1,9 @@
 <template>
 
   <form
-      @submit.prevent class="mt-0 mb-10 md:mb-0 lg:mt-10 sm:static px-4 py-3 w-full max-w-2xl mx-auto pb-[env(safe-area-inset-bottom)]"
-      :class="[keyboardOpen ? 'fixed inset-x-0 z-20' : 'sticky bottom-10']"
-      :style="keyboardOpen ? { bottom: `${keyboardOffset}px` } : undefined">
+      @submit.prevent class="mt-0  md:mb-0 lg:mt-10 sm:static px-4 py-3 w-full max-w-2xl mx-auto pb-[env(safe-area-inset-bottom)]"
+      :class="[gameStore.mobileKeyboardOpen ? 'fixed inset-x-0 z-20 mb-2' : 'sticky bottom-10 mb-10']"
+      :style="gameStore.mobileKeyboardOpen ? { bottom: `${keyboardOffset}px` } : undefined">
 
     <div  class="relative">
       <input
@@ -12,10 +12,8 @@
           v-model="gameStore.userInput"
           type="text"
           autofocus
-          class="relative w-full rounded-xl px-4 pr-14 py-3 text-center text-xl font-ui text-pokemon-yellow font-bold uppercase outline-2 outline-pokemon-yellow outline-offset-0"
+          class="relative w-full rounded-xl pr-14 py-3 text-center text-xl font-ui text-pokemon-yellow font-bold uppercase outline-2 outline-pokemon-yellow outline-offset-0"
           :class="{'opacity-100': gameStore.pokemon.imageReady, 'opacity-0': !gameStore.pokemon.imageReady}"
-          @focus="restart()"
-          @input="restart()"
           @blur="stop()"
           aria-describedby="input-timer"
       />
@@ -38,7 +36,6 @@
 import {useGameStore} from "~/stores/gameStore.js";
 
 const gameStore = useGameStore()
-const keyboardOpen = ref(false)
 const keyboardOffset = ref(0)
 
 function onGlobalKeydown(e) {
@@ -72,7 +69,7 @@ function tick() {
   if (timeLeft.value <= 0) stop()
 }
 
-function restart() {
+function triggerShowBadge() {
   showBadge.value = true
   timeLeft.value = 3
   clearInterval(timer)
@@ -85,14 +82,14 @@ function stop() {
   showBadge.value = false
 }
 
-function updateKbState() {
+function updateKeyboardState() {
   const vv = window.visualViewport
   if (!vv) return
 
   const lost = window.innerHeight - vv.height - vv.offsetTop
   const open = lost > 100
 
-  keyboardOpen.value = open
+  gameStore.setKeyboardOpen(open)
   keyboardOffset.value = open ? Math.max(0, lost) : 0
 }
 
@@ -100,16 +97,16 @@ onMounted(() => {
 
   const vv = window.visualViewport
   if (!vv) return
-  vv.addEventListener('resize', updateKbState)
-  vv.addEventListener('scroll', updateKbState)
-  updateKbState()
+  vv.addEventListener('resize', updateKeyboardState)
+  vv.addEventListener('scroll', updateKeyboardState)
+  updateKeyboardState()
 })
 
 onBeforeUnmount(() => {
   stop()
   const vv = window.visualViewport
   if (!vv) return
-  vv.removeEventListener('resize', updateKbState)
-  vv.removeEventListener('scroll', updateKbState)
+  vv.removeEventListener('resize', updateKeyboardState)
+  vv.removeEventListener('scroll', updateKeyboardState)
 })
 </script>

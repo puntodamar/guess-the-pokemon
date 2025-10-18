@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-dvh flex flex-col mx-5">
+  <div class="min-h-dvh flex flex-col mx-3 md:mx-5">
     <app-header/>
     <slot />
     <app-footer class="hidden md:block"/>

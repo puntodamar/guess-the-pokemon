@@ -24,7 +24,9 @@
     --color-surface:   var(--surface);
 }
 
-
+:root {
+    --kb: 0px; --bar-h: 56px;
+}
 .dark-mode {
     --pokemon-yellow: #F7D64A;
     --pokemon-blue:   #1E3A8A;
@@ -94,3 +96,5 @@
     }
 
 }
+
+
