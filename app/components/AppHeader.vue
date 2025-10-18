@@ -7,6 +7,9 @@
     <div class="flex-1 min-w-0"></div>
 
     <div class="flex flex-row gap-x-2">
+      <button @click="gameStore.toggleAudio" class="btn btn-normal">
+        <Icon :name="soundClass" size="1rem" />
+      </button>
       <button @click="toggleMode" class="btn btn-normal">
         <Icon :name="iconName" size="1rem" />
       </button>
@@ -17,10 +20,15 @@
   </div>
 </template>
 <script setup>
+  import {useGameStore} from "~/stores/gameStore.js";
+
   const colorMode = useColorMode()
+  const gameStore = useGameStore()
   const iconName = computed(() => colorMode.value === 'dark' ? 'material-symbols-light:light-mode' : 'material-symbols-light:dark-mode')
   function toggleMode() {
     colorMode.preference = colorMode.preference === 'dark' ? 'light' : 'dark';
     document.getElementById('pokemon-input').focus()
   }
+
+  const soundClass = computed(() => gameStore.controls.audio === true ? 'tdesign:sound' : 'quill:sound')
 </script>

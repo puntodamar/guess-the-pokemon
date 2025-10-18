@@ -67,6 +67,7 @@ function onGlobalKeydown(e) {
 
   if (isEnter) {
     e.preventDefault()
+    gameStore.playPokemonCry()
     gameStore.submitName()
   }
 }
