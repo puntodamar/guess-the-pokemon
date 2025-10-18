@@ -1,7 +1,10 @@
 <template>
   <section class="flex flex-col">
-    <p class="mt-0 xl:mt-15  lg:mb-40 text-center" :class="{'mb-15': gameStore.mobileKeyboardOpen, 'mb-30': !gameStore.mobileKeyboardOpen}">
-      <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text" :class="{invisible: !gameStore.pokemon.imageReady}">{{formatVowels}}</span>
+    <p v-if="gameStore.inputResult === null" class="mt-0 xl:mt-15 text-center" :class="guessThePokemonClass">
+      <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight text-text" >Guess The Pokemon</span>
+    </p>
+    <p v-else class="mb-0 mt-0 xl:mt-15 text-center" :class="[gameStore.mobileKeyboardOpen ? 'mb-15' : 'mb-30']">
+      <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text" :class="{invisible: gameStore.inputResult === null}">{{formatVowels}}</span>
       <span class="font-pokemon title title-outline" :class="pokemonNameClass">{{`${gameStore.pokemon.name}!`}}</span>
     </p>
 
@@ -69,9 +72,19 @@ const gameStore = useGameStore()
 const colorMode = useColorMode()
 const vowels = ['A', 'I', 'U', 'E', 'O'];
 
+const guessThePokemonClass = computed(() => {
+  let classes = []
+  if (gameStore.inputResult !== null) classes.push("invisible")
+  classes.push(gameStore.mobileKeyboardOpen ? "mb-15" : "mb-30")
+  return classes
+})
+
 const pokemonNameClass = computed(() => {
   let classes = "";
-  if(!gameStore.pokemon.imageReady) classes += "invisible";
+  if(gameStore.inputResult === null) {
+    classes += "invisible";
+    return classes;
+  }
 
   classes += gameStore.mobileKeyboardOpen ? "text-xl lg:text-5xl" : " text-2xl lg:text-5xl";
   return classes;
