@@ -1,5 +1,5 @@
 <template>
-  <form  @submit.prevent class="mt-10">
+  <form  @submit.prevent class="mt-20 lg:mt-10">
     <input
         id="pokemon-input"
         name="pokemon-input"

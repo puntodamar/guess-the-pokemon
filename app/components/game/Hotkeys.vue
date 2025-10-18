@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="ui-label mb-5">Hotkeys</h3>
+    <h3 class="ui-label mb-3">Hotkeys</h3>
 
     <div class="flex flex-col gap-y-2">
       <div class="flex items-center gap-6">
