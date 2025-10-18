@@ -20,5 +20,6 @@
   const iconName = computed(() => colorMode.value === 'dark' ? 'material-symbols-light:light-mode' : 'material-symbols-light:dark-mode')
   function toggleMode() {
     colorMode.preference = colorMode.preference === 'dark' ? 'light' : 'dark';
+    document.getElementById('pokemon-input').focus()
   }
 </script>

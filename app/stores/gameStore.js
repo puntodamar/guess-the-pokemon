@@ -33,6 +33,10 @@ export const useGameStore = defineStore('game-store', () => {
         userInput.value = null
     }
     
+    function setGeneration(gen) {
+        generation = gen
+    }
+    
     function isError()        { return gameState.value === GameStateError  }
     function isLoadingState() { return gameState.value === GameStateLoading }
     
@@ -63,7 +67,9 @@ export const useGameStore = defineStore('game-store', () => {
             errorMessage.value = null
             pokemon.value = { id: null, name: null, flavor: null, imageUrl: null, revealed: false }
             
-            const data = await $fetch('/api/random-pokemon')
+            let url = '/api/random-pokemon'
+            if(generation) url += `?gen=${generation}`
+            const data = await $fetch(url)
             if (!data || data.error) {
                 gameState.value = GameStateError
                 errorMessage.value = String(data?.error || 'Unknown error')
@@ -90,7 +96,7 @@ export const useGameStore = defineStore('game-store', () => {
     
     return {
         gameState, errorMessage, isLoading, pokemon, userInput,
-        revealPokemon, setGameState, loadRandomPokemon,getGeneration, resetUserInput,
+        revealPokemon, setGameState, loadRandomPokemon,getGeneration, resetUserInput, setGeneration,
         isError, isLoadingState,
     }
 })
