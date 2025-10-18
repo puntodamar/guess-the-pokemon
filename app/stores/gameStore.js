@@ -12,8 +12,10 @@ export const useGameStore = defineStore('game-store', () => {
     const isLoading = ref(false)
     const userInput = ref(null)
     const mobileKeyboardOpen = ref(false)
+    const inputResult = ref(null)
     let generation = null
     let totalGeneration = null
+    const points = reactive({ point: 0, currentStreak: 0, longestStreak: 0})
     
     const pokemon = ref({
         id: null,
@@ -48,6 +50,31 @@ export const useGameStore = defineStore('game-store', () => {
     function setGameState(next) {
         if (GameStates.includes(next)) gameState.value = next
     }
+    
+    function submitName() {
+        
+        if(pokemon.value.name === capitalizeFirstLetter(userInput.value)) {
+            points.currentStreak += 1
+            points.point += 1
+            inputResult.value = true
+            return true
+        } else {
+            if (points.currentStreak >= 0 && points.longestStreak < points.currentStreak ) {
+                points.longestStreak = points.currentStreak
+            }
+            points.currentStreak = 0
+            inputResult.value = false
+            // userInput.value = ""
+            return false
+        }
+        
+
+    }
+    
+    function clearResult() {
+        inputResult.value = null
+    }
+    
     
     async function getGeneration(){
         if(totalGeneration) return totalGeneration;
@@ -103,8 +130,9 @@ export const useGameStore = defineStore('game-store', () => {
     }
     
     return {
-        gameState, errorMessage, isLoading, pokemon, userInput, mobileKeyboardOpen,
-        revealPokemon, setGameState, loadRandomPokemon,getGeneration, resetUserInput, setGeneration, setKeyboardOpen,
+        gameState, errorMessage, isLoading, pokemon, userInput, mobileKeyboardOpen, points, inputResult,
+        revealPokemon, setGameState, loadRandomPokemon,getGeneration, resetUserInput, setGeneration, setKeyboardOpen, submitName,
+        clearResult,
         isError, isLoadingState,
     }
 })
