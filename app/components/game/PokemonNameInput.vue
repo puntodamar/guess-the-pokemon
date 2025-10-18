@@ -12,7 +12,7 @@
           v-model="gameStore.userInput"
           type="text"
           autofocus
-          class="relative w-full rounded-xl pr-14 py-3 text-center text-xl font-ui text-pokemon-yellow font-bold uppercase outline-2 outline-pokemon-yellow outline-offset-0"
+          class="relative w-full rounded-xl pr-14 py-3 text-center text-xl font-ui text-pokemon-yellow font-bold uppercase outline-2 outline-text outline-offset-0"
           :class="{'opacity-100': gameStore.pokemon.imageReady, 'opacity-0': !gameStore.pokemon.imageReady}"
           @blur="stop()"
           aria-describedby="input-timer"

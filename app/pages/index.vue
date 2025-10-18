@@ -6,10 +6,14 @@
       <hotkeys class="mt-10"/>
     </div>
 
-    <game-screen class="flex-1 min-w-0 justify-center lg:items-center pb-[calc(env(safe-area-inset-bottom)+var(--kb,0px)+4rem)]"/>
+    <game-screen
+      class="flex-1 min-w-0 lg:items-center pb-[calc(env(safe-area-inset-bottom)+var(--kb,0px)+4rem)]"
+      :class="gameScreenClass"
+    />
+
     <div
-        class="lg:hidden fixed inset-x-0 z-50 border-t border-transparent px-3 py-2"
-         style="bottom: calc(env(safe-area-inset-bottom) + var(--kb, 0px)); background: transparent;">
+      class="lg:hidden fixed inset-x-0 z-50 border-t border-transparent px-3 py-2"
+      style="bottom: calc(env(safe-area-inset-bottom) + var(--kb, 0px)); background: transparent;">
       <pokemon-name-input class="w-full bg-transparent"/>
     </div>
 
@@ -29,4 +33,8 @@ import PokemonNameInput from "~/components/game/PokemonNameInput.vue";
 import {useGameStore} from "~/stores/gameStore";
 
 const gameStore = useGameStore();
+
+const gameScreenClass = computed(() => {
+  return gameStore.mobileKeyboardOpen ? 'justify-start mt-17' : 'justify-center'
+})
 </script>

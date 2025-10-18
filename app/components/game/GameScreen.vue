@@ -1,8 +1,8 @@
 <template>
   <section class="flex flex-col">
-    <p class="mt-0 xl:mt-15 mb-30 lg:mb-40 text-center">
+    <p class="mt-0 xl:mt-15  lg:mb-40 text-center" :class="{'mb-15': gameStore.mobileKeyboardOpen, 'mb-30': !gameStore.mobileKeyboardOpen}">
       <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text" :class="{invisible: !gameStore.pokemon.imageReady}">{{formatVowels}}</span>
-      <span class="text-2xl lg:text-5xl font-pokemon title title-outline" :class="{invisible: !gameStore.pokemon.imageReady}">{{`${gameStore.pokemon.name}!`}}</span>
+      <span class="font-pokemon title title-outline" :class="pokemonNameClass">{{`${gameStore.pokemon.name}!`}}</span>
     </p>
 
     <div class="flex justify-center">
@@ -32,7 +32,7 @@
                 playsinline
                 preload="auto"
             />
-            <p class="text-text text-center">Loading Pokédex entry…</p>
+            <p class="text-text text-center text-xs md:text-base">Loading Pokédex entry…</p>
           </div>
 
 
@@ -67,7 +67,15 @@ import PokemonNameInput from "~/components/game/PokemonNameInput.vue";
 
 const gameStore = useGameStore()
 const colorMode = useColorMode()
-const vowels = ['a', 'e', 'i', 'o', 'u'];
+const vowels = ['A', 'I', 'U', 'E', 'O'];
+
+const pokemonNameClass = computed(() => {
+  let classes = "";
+  if(!gameStore.pokemon.imageReady) classes += "invisible";
+
+  classes += gameStore.mobileKeyboardOpen ? "text-xl lg:text-5xl" : " text-2xl lg:text-5xl";
+  return classes;
+})
 
 
 
@@ -81,7 +89,7 @@ const pokemonImageLoaded = () => {
 const imageLoaderClass = computed(() => {
 
   if(!gameStore.pokemon.imageReady) return "opacity-0";
-  const size = gameStore.mobileKeyboardOpen ?  "w-25 h-25" : "w-55 h-55 md:w-80 md:h-80";
+  const size = gameStore.mobileKeyboardOpen ?  "w-18 h-18" : "w-55 h-55 md:w-80 md:h-80";
 
   const darkGradient = 'before:bg-[radial-gradient(50%_50%_at_50%_50%,_#ffffff_10%,_#ffffff_5%,_transparent_100%)]'
   const lightGradient = 'before:bg-[radial-gradient(50%_50%_at_50%_50%,_#6b7280_10%,_#6b7280_5%,_transparent_100%)]'

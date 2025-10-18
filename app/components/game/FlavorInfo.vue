@@ -62,6 +62,5 @@ onBeforeUnmount(clearTimers)
 .caret {
   display: inline-block;
   width: 0.5ch;
-  margin-left: 1px;
 }
 </style>
