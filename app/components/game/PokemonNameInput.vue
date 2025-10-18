@@ -5,7 +5,7 @@
       :class="[gameStore.mobileKeyboardOpen ? 'fixed inset-x-0 z-20 mb-2' : 'sticky bottom-10 mb-10']"
       :style="gameStore.mobileKeyboardOpen ? { bottom: `${keyboardOffset}px` } : undefined">
 
-    <div  class="relative">
+    <div class="relative">
       <input
           ref="pokemonInput"
           id="pokemon-input"
@@ -13,7 +13,7 @@
           v-model="gameStore.userInput"
           type="text"
           autofocus
-          class="relative w-full rounded-xl pr-14 py-3 text-center text-xl font-ui font-bold uppercase outline-2 outline-offset-0"
+          class="relative w-full rounded-xl pl-14 pr-14 py-3 text-center text-xl font-ui font-bold uppercase outline-2 outline-offset-0"
           :class="inputClass"
           @blur="stopBadgeCountdown()"
           :placeholder="`DEBUG: ${gameStore.pokemon.name}`"
@@ -25,11 +25,11 @@
           class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center select-none pointer-events-none text-text font-bold text-sm backdrop-blur-sm"
           :class="{'opacity-100': gameStore.pokemon.imageReady, 'opacity-0': !gameStore.pokemon.imageReady}"
           id="input-timer"
-          aria-live="polite"
-      >
+          aria-live="polite">
         {{ timeLeft }}
       </div>
     </div>
+
 
   </form>
 </template>
