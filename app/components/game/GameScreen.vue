@@ -44,7 +44,7 @@
 <!--        <flavor-info class="mt-25" />-->
 
 
-        <p class="text-sm font-body text-center text-pretty mt-30 mx-10 hidden md:block">
+        <p class="text-sm font-body text-center text-pretty mt-30 mx-10 hidden sm:block">
           <span
               v-show="gameStore.gameState !== GameStateError && gameStore.pokemon.imageReady"
               :key="gameStore.pokemon.imageUrl"
@@ -69,9 +69,6 @@
 import {useGameStore} from "~/stores/gameStore";
 import FlavorInfo from "~/components/game/FlavorInfo.vue";
 import PokemonNameInput from "~/components/game/PokemonNameInput.vue";
-
-
-
 
 const gameStore = useGameStore()
 const colorMode = useColorMode()
@@ -123,7 +120,7 @@ const silhouetteClass = computed(() => {
 
 onMounted(() => {
   gameStore.getGeneration().then((generation) => {
-    gameStore.loadRandomPokemon(5)
+    gameStore.loadRandomPokemon(generation)
   })
 })
 </script>

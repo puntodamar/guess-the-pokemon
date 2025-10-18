@@ -90,7 +90,7 @@
     }
 
     .hotkey {
-        @apply inline-flex items-center justify-start gap-2 border border-[var(--color-pokemon-blue)] rounded-lg py-2 px-3 leading-none w-25  justify-center;
+        @apply inline-flex items-center justify-start gap-2 border border-[var(--color-text)] rounded-lg py-2 px-3 leading-none w-25  justify-center;
     }
 
 }
