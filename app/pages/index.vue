@@ -1,7 +1,7 @@
 <template>
   <div class="relative flex flex-col lg:flex-row min-h-dvh w-full">
 
-    <div class="hidden xl:flex flex-1 min-w-0 flex-col mt-50 ml-10">
+    <div class="hidden xl:flex flex-1 min-w-0 flex-col mt-80 ml-10">
       <generation-selector/>
       <hotkeys class="mt-10"/>
     </div>
@@ -17,7 +17,7 @@
       <pokemon-name-input class="w-full bg-transparent"/>
     </div>
 
-    <div class="hidden xl:flex flex-1 min-w-0 flex-col items-end text-right mt-50 mr-10">
+    <div class="hidden xl:flex flex-1 min-w-0 flex-col items-end text-right mt-80 mr-10">
       <game-info/>
     </div>
   </div>
