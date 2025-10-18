@@ -1,7 +1,7 @@
 <template>
 
   <div class="text-center" :class="classes">
-    <p class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text text-center" :class="questionClasses">Guess The Pokemon</p>
+    <p class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text text-center mt-20 xl:mt-0" :class="questionClasses">Guess The Pokemon</p>
     <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text" :class="{invisible: !gameStore.controls.showBadge}">{{formatVowels}}</span>
     <span class="font-pokemon title title-outline" :class="pokemonNameClass">{{`${gameStore.pokemon.name} !`}}</span>
   </div>
