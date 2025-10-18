@@ -15,19 +15,18 @@ const gameStore = useGameStore();
 
 const classes = computed(() => {
 
-  let classes = props.classes;
+  let classes = props.classes.split(" ");
   if (props.mode === 'desktop') return classes;
-  classes += gameStore.mobileKeyboardOpen ? " mb-15" : " mb-30"
+  classes.push(gameStore.mobileKeyboardOpen ? " mb-15" : " mb-30")
+  classes.push(gameStore.inputResult !== null ? "visible" : "invisible")
   return classes;
 })
 
 const pokemonNameClass = computed(() => {
-  console.log(props.mode)
-  let classes = "";
+  let classes = [];
 
-  if(!gameStore.pokemon.imageReady) classes += "invisible";
-
-  classes += gameStore.mobileKeyboardOpen ? "text-xl lg:text-5xl" : " text-2xl lg:text-5xl";
+  if(!gameStore.pokemon.imageReady) classes.push("invisible");
+  classes.push(gameStore.mobileKeyboardOpen ? "text-xl lg:text-5xl" : " text-2xl lg:text-5xl") ;
   return classes;
 })
 

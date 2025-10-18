@@ -20,7 +20,7 @@
 
       <div class="lg:hidden fixed inset-x-0 z-50 border-t border-transparent px-3 py-2"
           style="--footer-h: 3.5rem; bottom: calc(env(safe-area-inset-bottom) + var(--kb, 0px) + var(--footer-h)); background: transparent;">
-        <pokemon-name-input class="w-full bg-transparent"/>
+        <pokemon-name-input v-if="gameStore.mobileKeyboardOpen" class="w-full bg-transparent"/>
       </div>
 
       <div class="hidden xl:flex flex-1 min-w-0 flex-col items-end text-right mr-10">
