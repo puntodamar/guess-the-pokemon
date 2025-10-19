@@ -40,8 +40,8 @@ export default defineNuxtConfig({
     modules: ['@nuxtjs/color-mode', '@nuxt/icon', '@pinia/nuxt', '@nuxtjs/ngrok'],
     colorMode: {
         classSuffix: '-mode',
-        preference: 'dark',
-        fallback: 'dark',
+        preference: 'light',
+        fallback: 'light',
         // hid: 'pokemon-color-mode-script',
         // globalName: '__NUXT_COLOR_MODE__',
         // componentName: 'ColorScheme',
