@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h3 class="ui-label" :class="titleMargin">Generations</h3>
+    <h3 class="ui-label" :class="[props.titleMargin, titleTextAligmnent]">Generations</h3>
 
-    <div v-if="generations.length > 0" class="grid grid-cols-2  gap-2 mt-2 max-w-60">
+    <div v-if="generations.length > 0" class="grid grid-cols-2 gap-2 mt-2 max-w-60" :class="[gridAligmnent]">
       <div>
         <label
             class="group relative block rounded-lg border border-pokemon-blue px-6 py-4 has-checked:outline-2 has-checked:-outline-offset-2 has-checked:bg-pokemon-blue has-checked:outline-pokemon-blue  has-focus-visible:outline-3 has-focus-visible:-outline-offset-1 sm:flex sm:justify-between">
@@ -54,8 +54,12 @@
 <script setup>
   import {useGameStore} from "~/stores/gameStore.js";
 
+  const titleTextAligmnent = computed(() => props.textAlignment === 'center' ? 'text-center' : '')
+  const gridAligmnent = computed(() => props.textAlignment === 'center' ? 'mx-auto' : '')
+
   const props = defineProps({
     titleMargin: {type: String, default: 'mb-0'},
+    textAlignment: {type: String, default: ''},
   })
   const gameStore = useGameStore()
   const generations = ref([])
