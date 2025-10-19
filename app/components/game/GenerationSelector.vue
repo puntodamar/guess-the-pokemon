@@ -11,7 +11,7 @@
                   type="radio"
                   name="generation"
                   value="all"
-                  checked
+                  v-model="gameStore.generation"
                   class="absolute inset-0 appearance-none focus:outline-none"
               />
               <span class="flex items-center">
@@ -30,6 +30,7 @@
               type="radio"
               name="generation"
               :value="gen"
+              v-model="gameStore.generation"
               class="absolute inset-0 appearance-none focus:outline-none"
           />
           <span class="flex items-center">

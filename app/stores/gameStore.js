@@ -13,7 +13,7 @@ export const useGameStore = defineStore('game-store', () => {
     const userInput = ref(null)
     const mobileKeyboardOpen = ref(false)
     const inputResult = ref(null)
-    let generation = null
+    const generation = ref('all')
     let totalGeneration = null
     const points = reactive({ point: 0, currentStreak: 0, longestStreak: 0})
     const controls = reactive({audio: true})
@@ -43,7 +43,7 @@ export const useGameStore = defineStore('game-store', () => {
     }
     
     function setGeneration(gen) {
-        generation = gen
+        generation.value = gen
     }
     
     function isError()        { return gameState.value === GameStateError  }
@@ -151,7 +151,7 @@ export const useGameStore = defineStore('game-store', () => {
     }
     
     return {
-        gameState, errorMessage, isLoading, pokemon, userInput, mobileKeyboardOpen, points, inputResult,
+        gameState, errorMessage, isLoading, pokemon, userInput, mobileKeyboardOpen, points, inputResult, generation,
         revealPokemon, setGameState, loadRandomPokemon,getGeneration, resetUserInput, setGeneration, setKeyboardOpen, submitName, controls,
         clearResult, toggleAudio, playPokemonCry,
         isError, isLoadingState,
