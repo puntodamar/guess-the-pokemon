@@ -1,7 +1,7 @@
 <template>
   <section class="flex flex-col">
     <p v-if="gameStore.inputResult === null" class="mt-0 xl:mt-15 text-center" :class="guessThePokemonClass">
-      <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight text-text" >Guess The Pokemon</span>
+      <span class="font-ui lg:text-5xl font-semibold tracking-tight text-text" :class="[gameStore.mobileKeyboardOpen ? 'text-xl' : 'text-2xl']" >Guess The Pokemon</span>
     </p>
     <p v-else class="mb-0 mt-0 xl:mt-15 text-center" :class="[gameStore.mobileKeyboardOpen ? 'mb-15' : 'mb-30']">
       <span class="font-ui text-2xl lg:text-5xl font-semibold tracking-tight mr-5 text-text" :class="{invisible: gameStore.inputResult === null}">{{formatVowels}}</span>
