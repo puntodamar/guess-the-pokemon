@@ -12,6 +12,7 @@
       <div  class="w-full max-w-2xl">
         <div class="relative flex items-center justify-center">
 
+
           <div :class="imageLoaderClass" class="relative isolate  overflow-visible transition-opacity rounded-full duration-700 ease-out">
             <img
                 @load="pokemonImageLoaded"
@@ -74,7 +75,7 @@ const vowels = ['A', 'I', 'U', 'E', 'O'];
 
 const guessThePokemonClass = computed(() => {
   let classes = []
-  if (gameStore.inputResult !== null) classes.push("invisible")
+  if (gameStore.inputResult !== null || !gameStore.pokemon.imageReady) classes.push("invisible")
   classes.push(gameStore.mobileKeyboardOpen ? "mb-15" : "mb-30")
   return classes
 })
