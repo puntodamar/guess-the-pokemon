@@ -42,8 +42,7 @@
 
 
     </div>
-    <div class="bg-pokemon-yellow mt-3 py-1 px-3 rounded-lg transition-opacity duration-200 max-w-60"
-         :class="showFlash ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'">
+    <div class="bg-pokemon-yellow py-1 px-3 rounded-lg transition-opacity duration-200 max-w-60 text-center mt-10  xl:mt-3" :class="popupClasses">
       <span class="text-xs text-pokemon-blue text-center">
         Will be applied to the next pokemon
       </span>
@@ -56,11 +55,19 @@
 
   const titleTextAligmnent = computed(() => props.textAlignment === 'center' ? 'text-center' : '')
   const gridAligmnent = computed(() => props.textAlignment === 'center' ? 'mx-auto' : '')
+  const popupClasses = computed(() => {
+    let classes = []
+    classes.push( showFlash.value ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none')
+    classes.push( props.textAlignment === 'center' ? 'mx-auto text-center' : '' )
+    return classes
+  })
+
 
   const props = defineProps({
     titleMargin: {type: String, default: 'mb-0'},
     textAlignment: {type: String, default: ''},
   })
+
   const gameStore = useGameStore()
   const generations = ref([])
   const showFlash = ref(false);
