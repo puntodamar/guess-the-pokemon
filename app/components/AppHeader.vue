@@ -4,7 +4,7 @@
       <button class="btn btn-normal xl:hidden" @click="openDialogLeft = true">
         <Icon name="mdi:cogs" />
       </button>
-      <button @click="gameStore.toggleAudio" class="btn btn-normal lg:hidden">
+      <button @click="gameStore.toggleAudio" class="btn btn-normal xl:hidden">
         <Icon :name="soundClass" size="1rem" />
       </button>
     </div>
@@ -12,7 +12,7 @@
     <div class="flex-1 min-w-0"></div>
 
     <div class="flex flex-row gap-x-2">
-      <button @click="gameStore.toggleAudio" class="btn btn-normal hidden lg:block">
+      <button @click="gameStore.toggleAudio" class="btn btn-normal hidden xl:block">
         <Icon :name="soundClass" size="1rem" />
       </button>
       <button @click="toggleMode" class="btn btn-normal">
