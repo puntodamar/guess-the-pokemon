@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="ui-label">Generations</h3>
+    <h3 class="ui-label" :class="titleMargin">Generations</h3>
 
     <div v-if="generations.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 max-w-60">
       <div>
@@ -53,6 +53,10 @@
 </template>
 <script setup>
   import {useGameStore} from "~/stores/gameStore.js";
+
+  const props = defineProps({
+    titleMargin: {type: String, default: 'mb-0'},
+  })
   const gameStore = useGameStore()
   const generations = ref([])
   const showFlash = ref(false);

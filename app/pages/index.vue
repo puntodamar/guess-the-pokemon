@@ -1,26 +1,26 @@
 <template>
-  <div class="relative flex flex-col lg:flex-row min-h-dvh w-full">
 
-    <div class="hidden xl:flex flex-1 min-w-0 flex-col mt-80 ml-10">
+  <div class="relative flex flex-col lg:flex-row w-full flex-1 min-h-0">
+
+    <div class="hidden xl:flex flex-1 min-w-0 flex-col ml-10 mt-80">
       <generation-selector/>
       <hotkeys class="mt-10"/>
     </div>
 
-    <game-screen
-      class="flex-1 min-w-0 lg:items-center pb-[calc(env(safe-area-inset-bottom)+var(--kb,0px)+4rem)]"
-      :class="gameScreenClass"
-    />
 
-    <div
-      class="lg:hidden fixed inset-x-0 z-50 border-t border-transparent px-3 py-2"
-      style="bottom: calc(env(safe-area-inset-bottom) + var(--kb, 0px)); background: transparent;">
+
+
+    <game-screen class="flex-1 min-w-0 lg:items-center" :class="gameScreenClass"/>
+
+    <div class="lg:hidden sticky bottom-0 inset-x-0 z-40 border-t border-transparent px-3 py-2" style="background: transparent;">
       <pokemon-name-input class="w-full bg-transparent"/>
     </div>
 
-    <div class="hidden xl:flex flex-1 min-w-0 flex-col items-end text-right mt-80 mr-10">
+    <div class="hidden xl:flex flex-1 min-w-0 flex-col  mt-80 items-end text-right mr-10">
       <game-info/>
     </div>
   </div>
+
 
 </template>
 

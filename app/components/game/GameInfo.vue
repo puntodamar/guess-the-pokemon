@@ -1,8 +1,8 @@
 <template>
-  <div class="space-y-10 w-full">
+  <div class="space-y-10 w-full" :class="props.textAligment">
     <div>
-      <h3 class="ui-label">Points</h3>
-      <p class="ui-text ">{{gameStore.points.point}}</p>
+      <h3 class="ui-label" >Points</h3>
+      <p class="ui-text">{{gameStore.points.point}}</p>
     </div>
     <div>
       <h3 class="ui-label">Current Streak</h3>
@@ -21,4 +21,8 @@
 <script setup>
 import {useGameStore} from "~/stores/gameStore.js";
 const gameStore = useGameStore()
+
+const props = defineProps({
+  textAligment: {type: String, default: ''},
+})
 </script>

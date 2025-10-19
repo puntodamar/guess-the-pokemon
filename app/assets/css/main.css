@@ -2,6 +2,7 @@
 @import "tailwindcss";
 
 @theme {
+    --pokemon-navy: #132A4A;
     --pokemon-yellow: #F8D94E;
     --pokemon-blue:   #3B5CA8;
 
@@ -20,7 +21,7 @@
     --color-pokemon-yellow: var(--pokemon-yellow);
     --color-pokemon-blue:   var(--pokemon-blue);
     --color-pokemon-red:    var(--pokemon-red);
-
+    --color-pokemon-navy: var(--pokemon-navy);
     --color-surface:   var(--surface);
 }
 
