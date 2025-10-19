@@ -2,7 +2,7 @@
   <div>
     <h3 class="ui-label" :class="titleMargin">Generations</h3>
 
-    <div v-if="generations.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 max-w-60">
+    <div v-if="generations.length > 0" class="grid grid-cols-2  gap-2 mt-2 max-w-60">
       <div>
         <label
             class="group relative block rounded-lg border border-pokemon-blue px-6 py-4 has-checked:outline-2 has-checked:-outline-offset-2 has-checked:bg-pokemon-blue has-checked:outline-pokemon-blue  has-focus-visible:outline-3 has-focus-visible:-outline-offset-1 sm:flex sm:justify-between">
