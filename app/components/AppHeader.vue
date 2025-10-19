@@ -25,13 +25,11 @@
 
     <SlideOverDialog v-model="openDialogLeft" side="left" width-class="max-w-sm">
       <div class="space-y-4">
-        <generation-selector title-margin="mb-10"/>
+        <generation-selector title-margin="mb-10" text-alignment="center"/>
       </div>
 
       <template #footer>
-        <div class="text-xs opacity-50 text-text">
-          Made by <NuxtLink to="https://puntodamar.vercel.app/" class="text-pokemon-yellow" target="_blank">puntodamar</NuxtLink> with <NuxtLink class="text-pokemon-yellow" to="https://pokeapi.co/" target="_blank">https://pokeapi.co/</NuxtLink>
-        </div>
+        <app-footer/>
       </template>
     </SlideOverDialog>
 
@@ -41,9 +39,7 @@
       </div>
 
       <template #footer>
-        <div class="text-xs opacity-50 text-text text-center">
-          Made by <NuxtLink to="https://puntodamar.vercel.app/" class="text-pokemon-yellow" target="_blank">puntodamar</NuxtLink> with <NuxtLink class="text-pokemon-yellow" to="https://pokeapi.co/" target="_blank">https://pokeapi.co/</NuxtLink>
-        </div>
+        <app-footer/>
       </template>
     </SlideOverDialog>
   </div>
