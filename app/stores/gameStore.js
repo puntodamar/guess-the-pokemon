@@ -1,4 +1,5 @@
 import {capitalizeFirstLetter} from "~/composables/capitalize.js";
+import {getPokemon, randomInt} from "~/composables/getPokemon.js";
 
 export const GameStateLoading = 'GameStateLoading'
 export const GameStatePlaying = 'GameStatePlaying'
@@ -14,6 +15,7 @@ export const useGameStore = defineStore('game-store', () => {
     const mobileKeyboardOpen = ref(false)
     const inputResult = ref(null)
     const generation = ref('all')
+    const speciesList = ref([])
     let totalGeneration = null
     const points = reactive({ point: 0, currentStreak: 0, longestStreak: 0})
     const controls = reactive({audio: true})
@@ -42,8 +44,13 @@ export const useGameStore = defineStore('game-store', () => {
         userInput.value = null
     }
     
-    function setGeneration(gen) {
-        generation.value = gen
+    async function setGeneration(gen) {
+        if(generation.value !== gen) {
+            generation.value = gen
+            if (generation.value !== null) {
+                await updatePokemonSpecies()
+            }
+        }
     }
     
     function isError()        { return gameState.value === GameStateError  }
@@ -85,7 +92,7 @@ export const useGameStore = defineStore('game-store', () => {
     async function getGeneration(){
         if(totalGeneration) return totalGeneration;
         
-        const data = await $fetch('/api/generation')
+        const data = await $fetch('/api/generation/')
         if (!data || data.error) {
             gameState.value = GameStateError
             errorMessage.value = String(data?.error || 'Unknown error')
@@ -97,6 +104,7 @@ export const useGameStore = defineStore('game-store', () => {
         
     }
     async function loadRandomPokemon() {
+        console.log("loadRandomPokemon")
         try {
             userInput.value = null
             isLoading.value = true
@@ -105,14 +113,28 @@ export const useGameStore = defineStore('game-store', () => {
             errorMessage.value = null
             pokemon.value = { id: null, name: null, flavor: null, imageUrl: null, revealed: false }
             
-            let url = '/api/random-pokemon'
-            if(generation) url += `?gen=${generation}`
-            const data = await $fetch(url)
+            let url = ""
+            let data =  null
+            
+            if (generation.value !== 'all') {
+                let success = false
+                const randomSpecies = randomInt(0, speciesList.value.length-1)
+                for (let i = 0; i < 6; i++) {
+                    [success, data] = await getPokemon(randomSpecies)
+                    if(success) break;
+                }
+            } else {
+                url = '/api/pokemon/random'
+                data = await $fetch(url)
+            }
+            
             if (!data || data.error) {
                 gameState.value = GameStateError
                 errorMessage.value = String(data?.error || 'Unknown error')
                 return
             }
+            
+
             
             pokemon.value = {
                 id: data.id,
@@ -134,6 +156,26 @@ export const useGameStore = defineStore('game-store', () => {
         }
     }
     
+    async function updatePokemonSpecies() {
+        const url = `/api/pokemon/generation/${generation.value}`
+        let data = await $fetch(url)
+        
+        if (!data || data.error) {
+            gameState.value = GameStateError
+            errorMessage.value = String(data?.error || 'Unknown error')
+            return false
+        }
+        
+        console.log('dadada',data.pokemon_species)
+        
+        speciesList.value = data.pokemon_species.map(s => {
+            const parts = s.url.split("/");
+            return parts[parts.length - 2];
+        });
+        
+        return true
+    }
+    
     function getBaseAudio(url) {
         const audio = new Audio(url)
         audio.preload = 'auto'
@@ -151,7 +193,7 @@ export const useGameStore = defineStore('game-store', () => {
     }
     
     return {
-        gameState, errorMessage, isLoading, pokemon, userInput, mobileKeyboardOpen, points, inputResult, generation,
+        gameState, errorMessage, isLoading, pokemon, userInput, mobileKeyboardOpen, points, inputResult, generation, speciesList,
         revealPokemon, setGameState, loadRandomPokemon,getGeneration, resetUserInput, setGeneration, setKeyboardOpen, submitName, controls,
         clearResult, toggleAudio, playPokemonCry,
         isError, isLoadingState,
