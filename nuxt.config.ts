@@ -18,7 +18,7 @@ export default defineNuxtConfig({
                 {charset: 'utf-8'},
                 {name: 'viewport', content: 'width=device-width, initial-scale=1'},
                 {name: 'format-detection', content: 'telephone=no'},
-                {name: 'description', content: 'Guess The Pokemon is an portofolio application made by puntodamar'},
+                {name: 'description', content: 'Guess The Pokemon is a portofolio application made by puntodamar using Nuxt.js and pokemon API'},
             ],
             link: [
                 {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},

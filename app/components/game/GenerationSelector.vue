@@ -14,17 +14,15 @@
                   v-model="gameStore.generation"
                   class="absolute inset-0 appearance-none focus:outline-none"
               />
-              <span class="flex items-center">
-            <span class="flex flex-col text-sm">
-              <span class="font-ui">All Gen</span>
-            </span>
+          <span class="text-sm font-ui text-center">
+            All Gen
           </span>
         </label>
       </div>
 
       <div v-for="gen in generations" :key="gen">
         <label
-            class="group relative block rounded-lg border border-pokemon-blue px-6 py-4 has-checked:outline-2 has-checked:-outline-offset-2 has-checked:bg-pokemon-blue has-checked:outline-pokemon-blue  has-focus-visible:outline-3 has-focus-visible:-outline-offset-1 sm:flex sm:justify-between">
+            class=" text-center group relative block rounded-lg border border-pokemon-blue px-6 py-4 has-checked:outline-2 has-checked:-outline-offset-2 has-checked:bg-pokemon-blue has-checked:outline-pokemon-blue  has-focus-visible:outline-3 has-focus-visible:-outline-offset-1 sm:flex sm:justify-between">
           <input
               @click="setGeneration(gen)"
               type="radio"
@@ -33,10 +31,8 @@
               v-model="gameStore.generation"
               class="absolute inset-0 appearance-none focus:outline-none"
           />
-          <span class="flex items-center">
-            <span class="flex flex-col text-sm">
-              <span class="font-ui">{{ `Gen ${gen}` }}</span>
-            </span>
+          <span class="text-sm font-ui text-center">
+            {{ `Gen ${gen}` }}
           </span>
         </label>
       </div>
