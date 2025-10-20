@@ -1,7 +1,6 @@
-// app/composables/useTailwindScreens.js
 import { ref, onUnmounted } from 'vue'
 
-// Tailwind v4 default breakpoints (in rem units, 1rem = 16px)
+
 const breakpoints = {
     sm: '(max-width: 39.999rem)',   // < 640px
     md: '(max-width: 47.999rem)',   // < 768px
@@ -10,7 +9,7 @@ const breakpoints = {
     xxl: '(max-width: 95.999rem)',  // < 1536px
 }
 
-// Exported reactive values
+
 export const sm = ref(false)
 export const md = ref(false)
 export const lg = ref(false)
@@ -35,7 +34,7 @@ function setupMediaQueries() {
             isMobile.value = lg.value // alias for <1024px
         }
         
-        update() // initialize once
+        update()
         mq.addEventListener('change', update)
         mediaList.push({ mq, update })
     }
@@ -48,10 +47,8 @@ function cleanup() {
     mediaList = []
 }
 
-// Run once when this module is imported in the browser
 if (typeof window !== 'undefined') {
     setupMediaQueries()
-    // optional cleanup on window unload
     window.addEventListener('beforeunload', cleanup)
 }
 
