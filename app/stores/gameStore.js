@@ -61,8 +61,7 @@ export const useGameStore = defineStore('game-store', () => {
     }
     
     function submitName() {
-        
-        if(pokemon.value.name === capitalizeFirstLetter(userInput.value)) {
+        if(pokemon.value.name.toLowerCase() === userInput.value.toLowerCase()) {
             points.currentStreak += 1
             points.point += 1
             inputResult.value = true
