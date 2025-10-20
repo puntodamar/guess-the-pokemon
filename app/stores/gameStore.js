@@ -104,7 +104,7 @@ export const useGameStore = defineStore('game-store', () => {
         
     }
     async function loadRandomPokemon() {
-        console.log("loadRandomPokemon")
+        console.log("load random pokemon")
         try {
             userInput.value = null
             isLoading.value = true
@@ -165,8 +165,6 @@ export const useGameStore = defineStore('game-store', () => {
             errorMessage.value = String(data?.error || 'Unknown error')
             return false
         }
-        
-        console.log('dadada',data.pokemon_species)
         
         speciesList.value = data.pokemon_species.map(s => {
             const parts = s.url.split("/");

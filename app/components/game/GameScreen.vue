@@ -56,7 +56,7 @@
         </p>
 
 
-        <pokemon-name-input class="hidden lg:block" />
+        <pokemon-name-input class="lg:block" v-if="!isMobile" />
 
       </div>
     </div>
@@ -72,6 +72,8 @@ import PokemonNameInput from "~/components/game/PokemonNameInput.vue";
 const gameStore = useGameStore()
 const colorMode = useColorMode()
 const vowels = ['A', 'I', 'U', 'E', 'O'];
+
+import {xl, lg, isMobile} from "~/composables/useTailwindScreens.js";
 
 const guessThePokemonClass = computed(() => {
   let classes = []

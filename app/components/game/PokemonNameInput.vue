@@ -15,9 +15,10 @@
           autofocus
           class="relative w-full rounded-xl pl-14 pr-14 py-3 text-center text-xl font-ui font-bold uppercase outline-2 outline-offset-0"
           :class="inputClass"
-          @blur="stopBadgeCountdown()"
           :placeholder="`DEBUG: ${gameStore.pokemon.name}`"
           aria-describedby="input-timer"
+          @focus="addListeners"
+          @blur="removeListeners"
       />
 
       <div
@@ -43,6 +44,7 @@ const pokemonInput = ref(null)
 const timeLeft = ref(3)
 const showBadge = ref(false)
 let countdownTimer = null
+
 
 const inputClass = computed(() => {
   let classes = []
@@ -78,7 +80,7 @@ onMounted(() => {
 
 function tick() {
   timeLeft.value -= 1
-  if (timeLeft.value <= 0) {
+  if (timeLeft.value <= 0 && timeLeft.value !== 1) {
 
     stopBadgeCountdown(true)
   }
@@ -103,6 +105,7 @@ function resetGame() {
   gameStore.resetUserInput()
   gameStore.loadRandomPokemon()
   gameStore.clearResult()
+
 }
 
 function updateKeyboardState() {
@@ -116,31 +119,39 @@ function updateKeyboardState() {
   keyboardOffset.value = open ? Math.max(0, lost) : 0
 }
 
-onMounted(() => {
 
+function addListeners() {
   const vv = window.visualViewport
   if (!vv) return
+
+
   vv.addEventListener('resize', updateKeyboardState)
   vv.addEventListener('scroll', updateKeyboardState)
   updateKeyboardState()
-})
+}
 
+function removeListeners() {
+  const vv = window.visualViewport
+  if (!vv) return
+  vv.removeEventListener('resize', updateKeyboardState)
+  vv.removeEventListener('scroll', updateKeyboardState)
+}
 
 onBeforeUnmount(() => {
   window.removeEventListener('keyup', onGlobalKeydown, { capture: true })
   stopBadgeCountdown()
   subscribeNameInput()
   clearInterval(countdownTimer)
-  const vv = window.visualViewport
-  if (!vv) return
-  vv.removeEventListener('resize', updateKeyboardState)
-  vv.removeEventListener('scroll', updateKeyboardState)
 })
 
 const subscribeNameInput = gameStore.$onAction(({ name, after, onError }) => {
   if (name !== 'submitName') return
+
   after((correct) => {
-    triggerShowBadge()
+    if(name === 'submitName') {
+      triggerShowBadge()
+    }
+
 
   })
 })
