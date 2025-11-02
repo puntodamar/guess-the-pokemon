@@ -8,6 +8,9 @@ export default defineNuxtConfig({
         plugins: [
             tailwindcss(),
         ],
+        server: {
+            allowedHosts: ['.ngrok-free.dev']
+        }
     },
     app: {
         pageTransition: { name: 'page', mode: 'out-in' },
