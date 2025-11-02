@@ -18,7 +18,7 @@
           :placeholder="`DEBUG: ${gameStore.pokemon.name}`"
           aria-describedby="input-timer"
           @focus="addListeners"
-          @blur="removeListeners"
+          @blur="gameStore.setKeyboardOpen(false)"
       />
 
       <div
@@ -139,6 +139,7 @@ function removeListeners() {
 
 onBeforeUnmount(() => {
   window.removeEventListener('keyup', onGlobalKeydown, { capture: true })
+  removeListeners()
   stopBadgeCountdown()
   subscribeNameInput()
   clearInterval(countdownTimer)
