@@ -103,7 +103,7 @@ export const useGameStore = defineStore('game-store', () => {
         
     }
     async function loadRandomPokemon() {
-        console.log("load random pokemon")
+
         try {
             userInput.value = null
             isLoading.value = true
@@ -116,13 +116,16 @@ export const useGameStore = defineStore('game-store', () => {
             let data =  null
             
             if (generation.value !== 'all') {
+
                 let success = false
-                const randomSpecies = randomInt(0, speciesList.value.length-1)
+                const randomSpecies = speciesList.value[randomInt(0, speciesList.value.length-1)]
+                console.log(`load random gen ${generation.value} pokemon with species id ${randomSpecies}`)
                 for (let i = 0; i < 6; i++) {
                     [success, data] = await getPokemon(randomSpecies)
                     if(success) break;
                 }
             } else {
+                console.log(`load random pokemon`)
                 url = '/api/pokemon/random'
                 data = await $fetch(url)
             }
@@ -169,6 +172,8 @@ export const useGameStore = defineStore('game-store', () => {
             const parts = s.url.split("/");
             return parts[parts.length - 2];
         });
+        
+        console.log(speciesList.value)
         
         return true
     }
