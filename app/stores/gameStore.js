@@ -3,7 +3,7 @@ import {getPokemon, randomInt} from "~/composables/getPokemon.js";
 
 export const GameStateLoading = 'GameStateLoading'
 export const GameStatePlaying = 'GameStatePlaying'
-export const GameStateError   = 'GameStateError'
+export const GameStateError = 'GameStateError'
 export const GameStateInit = 'GameStateInit'
 export const GameStates = [GameStateLoading, GameStatePlaying, GameStateError, GameStateInit]
 
@@ -17,7 +17,7 @@ export const useGameStore = defineStore('game-store', () => {
     const generation = ref('all')
     const speciesList = ref([])
     let totalGeneration = null
-    const points = reactive({ point: 0, currentStreak: 0, longestStreak: 0})
+    const points = reactive({point: 0, currentStreak: 0, longestStreak: 0})
     const controls = reactive({audio: true})
     
     const pokemon = ref({
@@ -45,7 +45,7 @@ export const useGameStore = defineStore('game-store', () => {
     }
     
     async function setGeneration(gen) {
-        if(generation.value !== gen) {
+        if (generation.value !== gen) {
             generation.value = gen
             if (generation.value !== null) {
                 await updatePokemonSpecies()
@@ -53,21 +53,26 @@ export const useGameStore = defineStore('game-store', () => {
         }
     }
     
-    function isError()        { return gameState.value === GameStateError  }
-    function isLoadingState() { return gameState.value === GameStateLoading }
+    function isError() {
+        return gameState.value === GameStateError
+    }
+    
+    function isLoadingState() {
+        return gameState.value === GameStateLoading
+    }
     
     function setGameState(next) {
         if (GameStates.includes(next)) gameState.value = next
     }
     
     function submitName() {
-        if(pokemon.value.name.toLowerCase() === userInput.value.toLowerCase()) {
+        if (pokemon.value.name.toLowerCase() === userInput.value.toLowerCase()) {
             points.currentStreak += 1
             points.point += 1
             inputResult.value = true
             return true
         } else {
-            if (points.currentStreak >= 0 && points.longestStreak < points.currentStreak ) {
+            if (points.currentStreak >= 0 && points.longestStreak < points.currentStreak) {
                 points.longestStreak = points.currentStreak
             }
             points.currentStreak = 0
@@ -76,7 +81,7 @@ export const useGameStore = defineStore('game-store', () => {
             return false
         }
         
-
+        
     }
     
     function clearResult() {
@@ -88,8 +93,8 @@ export const useGameStore = defineStore('game-store', () => {
     }
     
     
-    async function getGeneration(){
-        if(totalGeneration) return totalGeneration;
+    async function getGeneration() {
+        if (totalGeneration) return totalGeneration;
         
         const data = await $fetch('/api/generation/')
         if (!data || data.error) {
@@ -102,27 +107,28 @@ export const useGameStore = defineStore('game-store', () => {
         return totalGeneration
         
     }
+    
     async function loadRandomPokemon() {
-
+        
         try {
             userInput.value = null
             isLoading.value = true
             pokemon.value.imageReady = false
             gameState.value = GameStateLoading
             errorMessage.value = null
-            pokemon.value = { id: null, name: null, flavor: null, imageUrl: null, revealed: false }
+            pokemon.value = {id: null, name: null, flavor: null, imageUrl: null, revealed: false}
             
             let url = ""
-            let data =  null
+            let data = null
             
             if (generation.value !== 'all') {
-
+                
                 let success = false
-                const randomSpecies = speciesList.value[randomInt(0, speciesList.value.length-1)]
+                const randomSpecies = speciesList.value[randomInt(0, speciesList.value.length - 1)]
                 console.log(`load random gen ${generation.value} pokemon with species id ${randomSpecies}`)
                 for (let i = 0; i < 6; i++) {
                     [success, data] = await getPokemon(randomSpecies)
-                    if(success) break;
+                    if (success) break;
                 }
             } else {
                 console.log(`load random pokemon`)
@@ -136,7 +142,6 @@ export const useGameStore = defineStore('game-store', () => {
                 return
             }
             
-
             
             pokemon.value = {
                 id: data.id,
@@ -187,7 +192,7 @@ export const useGameStore = defineStore('game-store', () => {
     
     function playPokemonCry() {
         const cry = pokemon.value.cry
-        if(!cry) return
+        if (!cry) return
         
         const base = getBaseAudio(cry)
         const instance = base.cloneNode()
@@ -195,9 +200,29 @@ export const useGameStore = defineStore('game-store', () => {
     }
     
     return {
-        gameState, errorMessage, isLoading, pokemon, userInput, mobileKeyboardOpen, points, inputResult, generation, speciesList,
-        revealPokemon, setGameState, loadRandomPokemon,getGeneration, resetUserInput, setGeneration, setKeyboardOpen, submitName, controls,
-        clearResult, toggleAudio, playPokemonCry,
-        isError, isLoadingState,
+        gameState,
+        errorMessage,
+        isLoading,
+        pokemon,
+        userInput,
+        mobileKeyboardOpen,
+        points,
+        inputResult,
+        generation,
+        speciesList,
+        revealPokemon,
+        setGameState,
+        loadRandomPokemon,
+        getGeneration,
+        resetUserInput,
+        setGeneration,
+        setKeyboardOpen,
+        submitName,
+        controls,
+        clearResult,
+        toggleAudio,
+        playPokemonCry,
+        isError,
+        isLoadingState,
     }
 })

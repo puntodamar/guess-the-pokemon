@@ -13,7 +13,7 @@ export default defineNuxtConfig({
         }
     },
     app: {
-        pageTransition: { name: 'page', mode: 'out-in' },
+        pageTransition: {name: 'page', mode: 'out-in'},
         head: {
             title: "Guess The Pokemon!",
             htmlAttrs: {lang: 'en'},
@@ -21,7 +21,10 @@ export default defineNuxtConfig({
                 {charset: 'utf-8'},
                 {name: 'viewport', content: 'width=device-width, initial-scale=1'},
                 {name: 'format-detection', content: 'telephone=no'},
-                {name: 'description', content: 'Guess The Pokemon is a portofolio application made by puntodamar using Nuxt.js and pokemon API'},
+                {
+                    name: 'description',
+                    content: 'Guess The Pokemon is a portofolio application made by puntodamar using Nuxt.js and pokemon API'
+                },
             ],
             link: [
                 {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},

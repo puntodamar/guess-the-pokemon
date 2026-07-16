@@ -1,9 +1,9 @@
 <template>
-  <ColorScheme>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </ColorScheme>
+    <ColorScheme>
+        <NuxtLayout>
+            <NuxtPage/>
+        </NuxtLayout>
+    </ColorScheme>
 </template>
 
 <script setup>

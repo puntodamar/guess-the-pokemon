@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     for (let i = 0; i < MAX_TRIES; i++) {
         result = await $fetch(`https://pokeapi.co/api/v2/generation/${id}/`)
         
-        if(!result) continue;
+        if (!result) continue;
         return result
     }
     
@@ -14,6 +14,6 @@ export default defineEventHandler(async (event) => {
         return result;
     } else {
         setResponseStatus(event, 503);
-        return { error: "No suitable Pokémon found. Please try again." };
+        return {error: "No suitable Pokémon found. Please try again."};
     }
 });

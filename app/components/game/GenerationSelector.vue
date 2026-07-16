@@ -1,102 +1,104 @@
 <template>
-  <div>
-    <h3 class="ui-label" :class="[props.titleMargin, titleTextAligmnent]">Generations</h3>
+    <div>
+        <h3 class="ui-label" :class="[props.titleMargin, titleTextAligmnent]">Generations</h3>
 
-    <div v-if="generations.length > 0" class="grid grid-cols-2 gap-2 mt-2 max-w-60" :class="[gridAligmnent]">
-      <div>
-        <label
-            class="group relative block rounded-lg border border-pokemon-blue px-6 py-4 has-checked:outline-2 has-checked:-outline-offset-2 has-checked:bg-pokemon-blue has-checked:outline-pokemon-blue  has-focus-visible:outline-3 has-focus-visible:-outline-offset-1 sm:flex sm:justify-between">
-              <input
-                  @click="setGeneration('all')"
-                  type="radio"
-                  name="generation"
-                  value="all"
-                  v-model="gameStore.generation"
-                  class="absolute inset-0 appearance-none focus:outline-none"
-              />
-          <span class="text-sm font-ui text-center">
+        <div v-if="generations.length > 0" class="grid grid-cols-2 gap-2 mt-2 max-w-60" :class="[gridAligmnent]">
+            <div>
+                <label
+                    class="group relative block rounded-lg border border-pokemon-blue px-6 py-4 has-checked:outline-2 has-checked:-outline-offset-2 has-checked:bg-pokemon-blue has-checked:outline-pokemon-blue  has-focus-visible:outline-3 has-focus-visible:-outline-offset-1 sm:flex sm:justify-between">
+                    <input
+                        @click="setGeneration('all')"
+                        type="radio"
+                        name="generation"
+                        value="all"
+                        v-model="gameStore.generation"
+                        class="absolute inset-0 appearance-none focus:outline-none"
+                    />
+                    <span class="text-sm font-ui text-center">
             All Gen
           </span>
-        </label>
-      </div>
+                </label>
+            </div>
 
-      <div v-for="gen in generations" :key="gen">
-        <label
-            class=" text-center group relative block rounded-lg border border-pokemon-blue px-6 py-4 has-checked:outline-2 has-checked:-outline-offset-2 has-checked:bg-pokemon-blue has-checked:outline-pokemon-blue  has-focus-visible:outline-3 has-focus-visible:-outline-offset-1 sm:flex sm:justify-between">
-          <input
-              @click="setGeneration(gen)"
-              type="radio"
-              name="generation"
-              :value="gen"
-              v-model="gameStore.generation"
-              class="absolute inset-0 appearance-none focus:outline-none"
-          />
-          <span class="text-sm font-ui text-center">
+            <div v-for="gen in generations" :key="gen">
+                <label
+                    class=" text-center group relative block rounded-lg border border-pokemon-blue px-6 py-4 has-checked:outline-2 has-checked:-outline-offset-2 has-checked:bg-pokemon-blue has-checked:outline-pokemon-blue  has-focus-visible:outline-3 has-focus-visible:-outline-offset-1 sm:flex sm:justify-between">
+                    <input
+                        @click="setGeneration(gen)"
+                        type="radio"
+                        name="generation"
+                        :value="gen"
+                        v-model="gameStore.generation"
+                        class="absolute inset-0 appearance-none focus:outline-none"
+                    />
+                    <span class="text-sm font-ui text-center">
             {{ `Gen ${gen}` }}
           </span>
-        </label>
-      </div>
+                </label>
+            </div>
 
 
-    </div>
-    <div class="bg-pokemon-yellow py-1 px-3 rounded-lg transition-opacity duration-200 max-w-60 text-center mt-10  xl:mt-3" :class="popupClasses">
+        </div>
+        <div
+            class="bg-pokemon-yellow py-1 px-3 rounded-lg transition-opacity duration-200 max-w-60 text-center mt-10  xl:mt-3"
+            :class="popupClasses">
       <span class="text-xs text-pokemon-blue text-center">
         Will be applied to the next pokemon
       </span>
-    </div>
+        </div>
 
-  </div>
+    </div>
 </template>
 <script setup>
-  import {useGameStore} from "~/stores/gameStore.js";
+import {useGameStore} from "~/stores/gameStore.js";
 
-  const titleTextAligmnent = computed(() => props.textAlignment === 'center' ? 'text-center' : '')
-  const gridAligmnent = computed(() => props.textAlignment === 'center' ? 'mx-auto' : '')
-  const popupClasses = computed(() => {
+const titleTextAligmnent = computed(() => props.textAlignment === 'center' ? 'text-center' : '')
+const gridAligmnent = computed(() => props.textAlignment === 'center' ? 'mx-auto' : '')
+const popupClasses = computed(() => {
     let classes = []
-    classes.push( showFlash.value ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none')
-    classes.push( props.textAlignment === 'center' ? 'mx-auto text-center' : '' )
+    classes.push(showFlash.value ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none')
+    classes.push(props.textAlignment === 'center' ? 'mx-auto text-center' : '')
     return classes
-  })
+})
 
 
-  const props = defineProps({
+const props = defineProps({
     titleMargin: {type: String, default: 'mb-0'},
     textAlignment: {type: String, default: ''},
-  })
+})
 
-  const gameStore = useGameStore()
-  const generations = ref([])
-  const showFlash = ref(false);
+const gameStore = useGameStore()
+const generations = ref([])
+const showFlash = ref(false);
 
-  onMounted(() => {
+onMounted(() => {
     gameStore.getGeneration().then(generation => {
-      for (let i = 1; i <= generation; i++) {
-        generations.value.push(i)
-      }
+        for (let i = 1; i <= generation; i++) {
+            generations.value.push(i)
+        }
     })
-  })
+})
 
-  const setGeneration = (generation) => {
-    if(generation === 'all') {
-      gameStore.setGeneration(null)
+const setGeneration = (generation) => {
+    if (generation === 'all') {
+        gameStore.setGeneration(null)
     } else {
-      gameStore.setGeneration(generation)
+        gameStore.setGeneration(generation)
     }
     triggerFlash()
     document.getElementById('pokemon-input').focus()
 
-  }
+}
 
-  let t = null
+let t = null
 
-  function triggerFlash() {
+function triggerFlash() {
     showFlash.value = true
     clearTimeout(t)
     t = setTimeout(() => {
-      showFlash.value = false
+        showFlash.value = false
     }, 1000)
-  }
+}
 
-  onBeforeUnmount(() => clearTimeout(t))
+onBeforeUnmount(() => clearTimeout(t))
 </script>

@@ -1,12 +1,11 @@
-
 @import "tailwindcss";
 
 @theme {
     --pokemon-navy: #132A4A;
     --pokemon-yellow: #F8D94E;
-    --pokemon-blue:   #3B5CA8;
+    --pokemon-blue: #3B5CA8;
 
-    --pokemon-red:    #D86A58;
+    --pokemon-red: #D86A58;
     --text: #ffffff;
     --surface: #3498DB;
 
@@ -14,25 +13,27 @@
 
 
     --font-pokemon: "Pokemon Solid", ui-sans-serif, system-ui, sans-serif;
-    --font-body:    "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
     --font-poppins: "Poppins", ui-sans-serif, system-ui, sans-serif;
 
     --color-text: var(--text);
     --color-pokemon-yellow: var(--pokemon-yellow);
-    --color-pokemon-blue:   var(--pokemon-blue);
-    --color-pokemon-red:    var(--pokemon-red);
+    --color-pokemon-blue: var(--pokemon-blue);
+    --color-pokemon-red: var(--pokemon-red);
     --color-pokemon-navy: var(--pokemon-navy);
-    --color-surface:   var(--surface);
+    --color-surface: var(--surface);
 }
 
 :root {
-    --kb: 0px; --bar-h: 56px;
+    --kb: 0px;
+    --bar-h: 56px;
 }
+
 .dark-mode {
     --pokemon-yellow: #F7D64A;
-    --pokemon-blue:   #1E3A8A;
-    --pokemon-red:    #C85C4C;
-    --surface:   #132A4A;
+    --pokemon-blue: #1E3A8A;
+    --pokemon-red: #C85C4C;
+    --surface: #132A4A;
 
 }
 
@@ -51,9 +52,17 @@
 }
 
 @layer utilities {
-    .font-heading { font-family: var(--font-pokemon); }
-    .font-body    { font-family: var(--font-body); }
-    .font-ui      { font-family: var(--font-poppins); }
+    .font-heading {
+        font-family: var(--font-pokemon);
+    }
+
+    .font-body {
+        font-family: var(--font-body);
+    }
+
+    .font-ui {
+        font-family: var(--font-poppins);
+    }
 }
 
 
@@ -75,13 +84,18 @@
         paint-order: stroke fill;
     }
 
-    .title-outline { -webkit-text-stroke: 10px var(--pokemon-blue); paint-order: stroke fill; }
+    .title-outline {
+        -webkit-text-stroke: 10px var(--pokemon-blue);
+        paint-order: stroke fill;
+    }
 
     .btn-primary {
         @apply bg-[var(--color-pokemon-yellow)] text-[color:var(--color-pokemon-blue)];
     }
 
-    .btn-primary:hover { filter: brightness(1.08); }
+    .btn-primary:hover {
+        filter: brightness(1.08);
+    }
 
     .btn-normal {
         @apply bg-[var(--color-pokemon-blue)] text-[color:var(--color-text)];

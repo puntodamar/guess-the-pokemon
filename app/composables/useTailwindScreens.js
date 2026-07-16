@@ -1,4 +1,4 @@
-import { ref, onUnmounted } from 'vue'
+import {ref, onUnmounted} from 'vue'
 
 
 const breakpoints = {
@@ -36,12 +36,12 @@ function setupMediaQueries() {
         
         update()
         mq.addEventListener('change', update)
-        mediaList.push({ mq, update })
+        mediaList.push({mq, update})
     }
 }
 
 function cleanup() {
-    for (const { mq, update } of mediaList) {
+    for (const {mq, update} of mediaList) {
         mq.removeEventListener('change', update)
     }
     mediaList = []
@@ -52,4 +52,4 @@ if (typeof window !== 'undefined') {
     window.addEventListener('beforeunload', cleanup)
 }
 
-export default { sm, md, lg, xl, xxl, isMobile }
+export default {sm, md, lg, xl, xxl, isMobile}

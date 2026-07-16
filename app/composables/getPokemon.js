@@ -12,7 +12,6 @@ function randomInt(min, max) {
 }
 
 
-
 function normalizeLetters(s) {
     return String(s || "").toLowerCase().replace(/[^a-z]/g, "");
 }
