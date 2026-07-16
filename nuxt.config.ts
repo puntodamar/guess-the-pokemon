@@ -1,6 +1,8 @@
 import tailwindcss from "@tailwindcss/vite";
+import * as process from "node:process";
 
 export default defineNuxtConfig({
+    $development: undefined, $env: undefined, $meta: undefined, $production: undefined, $test: undefined,
     css: ['~/assets/css/main.css'],
     compatibilityDate: '2025-07-15',
     devtools: {enabled: true},
@@ -23,7 +25,7 @@ export default defineNuxtConfig({
                 {name: 'format-detection', content: 'telephone=no'},
                 {
                     name: 'description',
-                    content: 'Guess The Pokemon is a portofolio application made by puntodamar using Nuxt.js and pokemon API'
+                    content: 'Guess The Pokemon is a portofolio application made by Punto Damar P. using Nuxt.js and pokemon API'
                 },
             ],
             link: [
@@ -43,7 +45,7 @@ export default defineNuxtConfig({
         }
     },
 
-    modules: ['@nuxtjs/color-mode', '@nuxt/icon', '@pinia/nuxt', '@nuxtjs/ngrok'],
+    modules: ['@nuxtjs/color-mode', '@nuxt/icon', '@pinia/nuxt', '@nuxtjs/ngrok', '@nuxtjs/sitemap'],
     colorMode: {
         classSuffix: '-mode',
         preference: 'light',
@@ -63,4 +65,27 @@ export default defineNuxtConfig({
     ngrok: {
         // module options
     },
+
+    runtimeConfig: {
+        public: {
+            siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000' // replace with your domain
+        }
+    },
+    // site: {
+    //     url: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+    //     name: 'Guess The Pokemon!',
+    //     description: 'A fun and interactive game to test your knowledge of Pokemon. Made available using Pokemon API and Nuxt.js. Created by Punto Damar P.',
+    //     // image: '/og-image.png',
+    //     defaultLocale: 'en'
+    // },
+    //
+    // robots: {
+    //     allow: '/',
+    //     sitemap: '/sitemap.xml'
+    // },
+    //
+    // sitemap: {
+    //     autoLastmod: true,
+    //     discoverImages: true
+    // }
 });

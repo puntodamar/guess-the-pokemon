@@ -1,5 +1,5 @@
 <template>
-
+    <h1 class="hidden">Guess The Pokemon! | Made by Punto Damar P.</h1>
     <div class="relative flex flex-col lg:flex-row w-full flex-1 min-h-0">
 
         <div class="hidden xl:flex flex-1 min-w-0 flex-col ml-10 mt-80">
@@ -24,17 +24,43 @@
 </template>
 
 <script setup>
-import GameScreen from '~/components/game/GameScreen'
-import Hotkeys from "~/components/game/Hotkeys.vue";
-import GameInfo from "~/components/game/GameInfo.vue";
-import GenerationSelector from "~/components/game/GenerationSelector.vue";
-import PokemonNameInput from "~/components/game/PokemonNameInput.vue";
-import {useGameStore} from "~/stores/gameStore";
-import {xl, lg, isMobile} from "~/composables/useTailwindScreens.js";
+    import GameScreen from '~/components/game/GameScreen'
+    import Hotkeys from "~/components/game/Hotkeys.vue";
+    import GameInfo from "~/components/game/GameInfo.vue";
+    import GenerationSelector from "~/components/game/GenerationSelector.vue";
+    import PokemonNameInput from "~/components/game/PokemonNameInput.vue";
+    import {useGameStore} from "~/stores/gameStore";
+    import {xl, lg, isMobile} from "~/composables/useTailwindScreens.js";
 
-const gameStore = useGameStore();
+    useSeoMeta({
+        title: 'Guess the Pokémon! | Made by Punto Damar P.',
+        description: 'A fun and interactive game to test your knowledge of Pokemon. Made available using Pokemon API and Nuxt.js. Created by Punto Damar P.',
+        ogSiteName: 'Guess the Pokémon! | Made by Punto Damar P.',
+        ogType: 'website',
+        ogTitle: 'Guess the Pokémon!',
+        ogDescription: 'A fun and interactive game to test your knowledge of Pokemon. Made available using Pokemon API and Nuxt.js. Created by Punto Damar P.',
+        twitterCard: 'summary_large_image',
+        robots: 'index, follow'
+    })
 
-const gameScreenClass = computed(() => {
-    return gameStore.mobileKeyboardOpen ? 'justify-start mt-17' : 'justify-center'
-})
+    definePageMeta({
+        overflowHidden: true,
+    });
+
+    useHead({
+        link: [
+            {
+                rel: 'canonical',
+                href: useRuntimeConfig().public.siteUrl
+            }
+        ]
+    })
+
+    const gameStore = useGameStore();
+
+    const gameScreenClass = computed(() => {
+        return gameStore.mobileKeyboardOpen ? 'justify-start mt-17' : 'justify-center'
+    })
+
+
 </script>
