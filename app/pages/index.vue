@@ -32,17 +32,6 @@
     import {useGameStore} from "~/stores/gameStore";
     import {xl, lg, isMobile} from "~/composables/useTailwindScreens.js";
 
-    useSeoMeta({
-        title: 'Guess the Pokémon! | Made by Punto Damar P.',
-        description: 'A fun and interactive game to test your knowledge of Pokemon. Made available using Pokemon API and Nuxt.js. Created by Punto Damar P.',
-        ogSiteName: 'Guess the Pokémon! | Made by Punto Damar P.',
-        ogType: 'website',
-        ogTitle: 'Guess the Pokémon!',
-        ogDescription: 'A fun and interactive game to test your knowledge of Pokemon. Made available using Pokemon API and Nuxt.js. Created by Punto Damar P.',
-        twitterCard: 'summary_large_image',
-        robots: 'index, follow'
-    })
-
     definePageMeta({
         overflowHidden: true,
     });
