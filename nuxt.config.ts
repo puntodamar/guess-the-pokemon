@@ -27,6 +27,10 @@ export default defineNuxtConfig({
                     name: 'description',
                     content: 'Guess The Pokemon is a portofolio application made by Punto Damar P. using Nuxt.js and pokemon API'
                 },
+                {
+                    name: 'google-site-verification',
+                    content: 'dvl_kmQDFqUYeGLo6rWTxp0u0wZCcmoUQoilqtFzBHw'
+                }
             ],
             link: [
                 {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},

@@ -10,59 +10,59 @@
 </template>
 
 <script setup>
-import {useGameStore} from "~/stores/gameStore";
+    import {useGameStore} from "~/stores/gameStore";
 
-const gameStore = useGameStore()
+    const gameStore = useGameStore()
 
-const typedFlavor = ref('')
+    const typedFlavor = ref('')
 
-let timer = null
-let caretTimer = null
-let runId = 0
+    let timer = null
+    let caretTimer = null
+    let runId = 0
 
-function clearTimers() {
-    if (timer) {
-        clearTimeout(timer);
-        timer = null
-    }
-    if (caretTimer) {
-        clearInterval(caretTimer);
-        caretTimer = null
-    }
-}
-
-function typeText(text, speed = 22, spaceSpeed = 12) {
-    runId++
-    const id = runId
-    typedFlavor.value = ''
-    const chars = Array.from(text) // handles emoji/surrogates
-
-    let i = 0
-    const step = () => {
-        // kill if a new run started
-        if (id !== runId) return
-        typedFlavor.value += chars[i++]
-        if (i < chars.length) {
-            const delay = chars[i - 1] === ' ' ? spaceSpeed : speed
-            timer = setTimeout(step, delay)
+    function clearTimers() {
+        if (timer) {
+            clearTimeout(timer);
+            timer = null
+        }
+        if (caretTimer) {
+            clearInterval(caretTimer);
+            caretTimer = null
         }
     }
-    step()
-}
 
-watch(
-    () => [gameStore.pokemon.flavor, gameStore.pokemon.imageReady, gameStore.gameState],
-    ([flavor, ready, state]) => {
-        clearTimers()
+    function typeText(text, speed = 22, spaceSpeed = 12) {
+        runId++
+        const id = runId
         typedFlavor.value = ''
-        if (!ready || state === GameStateError || !flavor) return
-        // You can tweak speed here:
-        typeText(flavor, 22, 10)
-    },
-    {immediate: true}
-)
+        const chars = Array.from(text) // handles emoji/surrogates
 
-onBeforeUnmount(clearTimers)
+        let i = 0
+        const step = () => {
+            // kill if a new run started
+            if (id !== runId) return
+            typedFlavor.value += chars[i++]
+            if (i < chars.length) {
+                const delay = chars[i - 1] === ' ' ? spaceSpeed : speed
+                timer = setTimeout(step, delay)
+            }
+        }
+        step()
+    }
+
+    watch(
+        () => [gameStore.pokemon.flavor, gameStore.pokemon.imageReady, gameStore.gameState],
+        ([flavor, ready, state]) => {
+            clearTimers()
+            typedFlavor.value = ''
+            if (!ready || state === GameStateError || !flavor) return
+            // You can tweak speed here:
+            typeText(flavor, 22, 10)
+        },
+        {immediate: true}
+    )
+
+    onBeforeUnmount(clearTimers)
 </script>
 
 <style scoped>
